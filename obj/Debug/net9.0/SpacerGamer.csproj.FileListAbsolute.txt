@@ -39,3 +39,4 @@ C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\EnemyShip.xnb
 C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\Laser.xnb
 C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\arial.xnb
 C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\EnemyShipAnimated.xnb
+C:\Users\Isaac\SpacerGamer\obj\Debug\net9.0\SpacerGamer.sourcelink.json

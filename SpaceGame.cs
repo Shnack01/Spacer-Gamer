@@ -17,6 +17,8 @@ namespace SpacerGamer{
 
 public class SpaceGame : Game
 {
+    private GamePadState gamePadState;
+        private GamePadState priorGamePadState;
     GameState currentState = GameState.MainMenu;
     private Spawning spawn;
     private GraphicsDeviceManager _graphics;
@@ -77,8 +79,10 @@ public class SpaceGame : Game
     {
     if(currentState == GameState.MainMenu)
     {
+        priorGamePadState = gamePadState;
+        gamePadState = GamePad.GetState(0);
         mouseState = Mouse.GetState();
-        if(playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) currentState = GameState.Playing;
+        if((playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) currentState = GameState.Playing;
         base.Update(gameTime);
         return;
     }
