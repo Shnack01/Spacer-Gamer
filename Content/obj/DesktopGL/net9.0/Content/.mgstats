@@ -1,6 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Isaac/SpacerGamer/Content/arial.spritefont","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70681,0.174437
-"C:/Users/Isaac/SpacerGamer/Content/EnemyShip.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.1260423
-"C:/Users/Isaac/SpacerGamer/Content/EnemyShipAnimated.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.110488
-"C:/Users/Isaac/SpacerGamer/Content/Laser.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0956318
-"C:/Users/Isaac/SpacerGamer/Content/SpaceShip.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.1138353
+"C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70681,0.4501118
+"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.0257126
+"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.0076065
+"C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0123709
+"C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.0036355

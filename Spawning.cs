@@ -29,8 +29,9 @@ namespace SpacerGamer
         {
             
         }
-        public List<EnemySprite> MakeEnemies(List<EnemySprite> enemies)
+        public List<IEnemy> MakeEnemies(List<IEnemy> enemies)
         {
+            
             enemies.Clear();
             for(int i = 0;  i < enemyCount; i++)
             {
@@ -40,6 +41,10 @@ namespace SpacerGamer
                 EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
                 enemies.Add(e);
             }
+            /*
+            EnemySprite e = new EnemySprite(0, new Vector2(200, 200));
+            enemies.Add(e);
+            */
             return enemies;
         }
     }

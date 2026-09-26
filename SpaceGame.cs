@@ -17,8 +17,10 @@ namespace SpacerGamer{
 
 public class SpaceGame : Game
 {
+    private float waveTransitionTimer = 2f;
+    private bool waveCompleted = true;
     private GamePadState gamePadState;
-        private GamePadState priorGamePadState;
+    private GamePadState priorGamePadState;
     GameState currentState = GameState.MainMenu;
     private Spawning spawn;
     private GraphicsDeviceManager _graphics;
@@ -27,7 +29,7 @@ public class SpaceGame : Game
     private SpriteBatch _spriteBatch;
     private SpaceShipSprite ship;
     private SpriteFont _spriteFont;
-    public List<EnemySprite> enemys = new List<EnemySprite>();
+    public List<IEnemy> enemys = new List<IEnemy>();
     private List<Laser> lasers = new List<Laser>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
@@ -91,16 +93,30 @@ public class SpaceGame : Game
         base.Update(gameTime);
         return; 
     }
+        ship.Color = Color.White;
         if (enemys.Count == 0)
         {
-
-            enemys = spawn.MakeEnemies(enemys);
-            
+            if (!waveCompleted) 
+            {
+                spawn.wave++;
+                waveTransitionTimer = 2f;
+                waveCompleted = true;
+            }
+            else
+            {
+                waveTransitionTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (waveTransitionTimer <= 0)
+                {
+                    enemys = spawn.MakeEnemies(enemys);
+                    waveCompleted = false;
+                }
+            }
         }
-        foreach(EnemySprite enemy in enemys)
+        foreach(IEnemy enemy in enemys)
         {
             enemy.LoadContent(Content);
             enemy.Update(gameTime, spawn.wave);
+            enemy.color = Color.White;
         }
         
         ship.Update(gameTime);
@@ -109,13 +125,16 @@ public class SpaceGame : Game
             laser.Update(gameTime);
             if (laser.used) continue;
 
-            foreach(EnemySprite enemy in enemys)
+            foreach(IEnemy enemy in enemys)
             {
                 if (enemy.hit || enemy.spawnTimer > 0) continue;
                 if (laser.Bounds.CollidesWith(enemy.Bounds)) 
                 {
+                    enemy.color = Color.Red;
                     enemy.hit = true;
                     laser.used = true;
+                    
+                    
                     score += 100;
                     break;
                 }
@@ -123,7 +142,7 @@ public class SpaceGame : Game
             
             
         }
-        foreach(EnemySprite enemy in enemys)
+        foreach(IEnemy enemy in enemys)
         {
             if (enemy.Position.Y > screenHeight)
             {
@@ -131,6 +150,7 @@ public class SpaceGame : Game
             }
             if (enemy.Bounds.CollidesWith(ship.Bounds))
             {
+                
                 ship.Health--;
                 enemy.hit= true;
                 if(ship.Health == 0)
@@ -139,6 +159,7 @@ public class SpaceGame : Game
                     currentState = GameState.GameOver;
                 }
                 
+                ship.Color = Color.Red;
                 
             }
         }
@@ -146,10 +167,7 @@ public class SpaceGame : Game
         
         enemys.RemoveAll(enemy => enemy.hit);
         lasers.RemoveAll(laser => laser.used);
-        if(enemys.Count == 0)
-        {
-            spawn.wave++;
-        }
+
         base.Update(gameTime);
         
     }
@@ -181,6 +199,10 @@ public class SpaceGame : Game
         }
         else 
         {
+            if(waveCompleted)
+                {
+                    _spriteBatch.DrawString(_spriteFont, $"Wave {spawn.wave}", new Vector2(325,200), Color.Blue);
+                }
             _spriteBatch.DrawString(_spriteFont, $"Ship Health: {ship.Health}", new Vector2(2,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Wave: {spawn.wave}", new Vector2(650,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Score: {score}", new Vector2(325,2), Color.Blue);

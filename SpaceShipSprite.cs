@@ -26,7 +26,7 @@ namespace SpacerGamer
         private bool lastDirectionLeft = true;
         public Vector2 Posision => position;
 
-        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200-16,200-16), 32, 32);
+        private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200-16,200-16), 20, 20);
 
         public BoundingRectangle Bounds => bounds;
         public event Action<Vector2> LaserFired;
@@ -78,17 +78,28 @@ namespace SpacerGamer
                 Vector2 spawnPosition = position + new Vector2(0, -24f);//give it a litle offset so that the laser comes from the nose of the ship
                 LaserFired?.Invoke(spawnPosition);
             }
-            if(keyboardState.IsKeyDown(Keys.LeftShift) && priorKeyboardState.IsKeyUp(Keys.LeftShift)|| (gamePadState.IsButtonDown(Buttons.B) && priorGamePadState.IsButtonUp(Buttons.B)))
+            if(keyboardState.IsKeyDown(Keys.E) && priorKeyboardState.IsKeyUp(Keys.E)|| (gamePadState.IsButtonDown(Buttons.RightShoulder) && priorGamePadState.IsButtonUp(Buttons.RightShoulder)))
             {
+
+                lastDirectionLeft = false;
+                Dash();
+            }
+            if(keyboardState.IsKeyDown(Keys.Q) && priorKeyboardState.IsKeyUp(Keys.Q)|| (gamePadState.IsButtonDown(Buttons.LeftShoulder) && priorGamePadState.IsButtonUp(Buttons.LeftShoulder)))
+            {
+                lastDirectionLeft = true;
                 Dash();
             }
 
-            //update the bounds
-            float scaledWidth = texture.Width * 3f;
-            float scaledHeight = texture.Height * 3f;
 
-            bounds.X = position.X - (scaledWidth / 2f);
-            bounds.Y = position.Y - (scaledHeight / 2f);
+            //update the bounds
+            float hitboxScale = .6f; // tune by eye until it feels fair
+            float scaledWidth = texture.Width * 3f * hitboxScale;
+            float scaledHeight = texture.Height * 2f * hitboxScale;
+
+            float verticalOffset = texture.Height * 3f * 0.1f;
+
+            bounds.X = position.X - (scaledWidth / 2f) + 3f;
+            bounds.Y = position.Y - (scaledHeight / 2f) + verticalOffset;
             bounds.Width = scaledWidth;
             bounds.Height = scaledHeight;
         }

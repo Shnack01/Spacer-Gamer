@@ -4,11 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Isaac/SpacerGamer/Content/arial.spritefont</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/EnemyShip.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/EnemyShipAnimated.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/Laser.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/SpaceShip.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
