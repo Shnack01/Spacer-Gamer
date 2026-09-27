@@ -7,16 +7,19 @@ namespace SpacerGamer
 {
     public abstract class EnemyBase : IEnemy
     {
+        
         protected Vector2 position;
         protected Texture2D texture;
         protected BoundingCircle bounds;
 
         public Vector2 Position => position;
         public BoundingCircle Bounds => bounds;
-
-        public bool hit { get; set; } = false;
+        public virtual int Health { get; set; } = 1;
+        public bool Destroyed { get; set; } = false;
         public Color color { get; set; } = Color.White;
         public float spawnTimer { get; set; }
+
+        public virtual int points {get; set;} = 100;
 
         protected EnemyBase(Vector2 position, float spawnTimer, float radius)
         {

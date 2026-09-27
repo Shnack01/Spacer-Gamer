@@ -31,6 +31,7 @@ public class SpaceGame : Game
     private SpriteFont _spriteFont;
     public List<IEnemy> enemys = new List<IEnemy>();
     private List<Laser> lasers = new List<Laser>();
+    private List<EnemyLaser> enemyLasers = new List<EnemyLaser>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
     private MouseState mouseState = new MouseState();
@@ -63,6 +64,12 @@ public class SpaceGame : Game
         var laser = new Laser(shipPosition);
         laser.LoadContent(Content);
         lasers.Add(laser);
+    }
+    private void EnemyLaserFired(Vector2 enemyPosition)
+    {
+        var laser = new EnemyLaser(enemyPosition);
+        laser.LoadContent(Content);
+        enemyLasers.Add(laser);
     }
 
     protected override void LoadContent()
@@ -120,6 +127,21 @@ public class SpaceGame : Game
         }
         
         ship.Update(gameTime);
+        foreach(var laser in enemyLasers)
+        {
+            laser.Update(gameTime);
+            if (laser.used) continue;
+                if (laser.Bounds.CollidesWith(ship.Bounds))
+                {
+                    ship.Health--;
+                    laser.used = true;
+                    if(ship.Health == 0)
+                    {
+                        ship.Explode();
+                        currentState = GameState.GameOver;
+                    }
+                }
+        }
         foreach (var laser in lasers)
         {
             laser.Update(gameTime);
@@ -127,15 +149,16 @@ public class SpaceGame : Game
 
             foreach(IEnemy enemy in enemys)
             {
-                if (enemy.hit || enemy.spawnTimer > 0) continue;
+                if (enemy.Health == 0 || enemy.spawnTimer > 0) continue;
                 if (laser.Bounds.CollidesWith(enemy.Bounds)) 
                 {
                     enemy.color = Color.Red;
-                    enemy.hit = true;
+                    enemy.Health--;
+                    if(enemy.Health == 0) enemy.Destroyed = true;
                     laser.used = true;
                     
                     
-                    score += 100;
+                    score += enemy.points;
                     break;
                 }
             }
@@ -144,15 +167,23 @@ public class SpaceGame : Game
         }
         foreach(IEnemy enemy in enemys)
         {
+            if(enemy is Sentry sEnemy)
+                {
+                    if(sEnemy.shoot)
+                    {
+                        EnemyLaserFired(sEnemy.Position);
+                        sEnemy.shoot = false;
+                    }
+                }
             if (enemy.Position.Y > screenHeight)
             {
-                enemy.hit = true;
+                enemy.Destroyed = true;
             }
             if (enemy.Bounds.CollidesWith(ship.Bounds))
             {
                 
                 ship.Health--;
-                enemy.hit= true;
+                enemy.Destroyed = true;
                 if(ship.Health == 0)
                 {
                     ship.Explode();
@@ -165,7 +196,7 @@ public class SpaceGame : Game
         }
         
         
-        enemys.RemoveAll(enemy => enemy.hit);
+        enemys.RemoveAll(enemy => enemy.Destroyed);
         lasers.RemoveAll(laser => laser.used);
 
         base.Update(gameTime);
@@ -199,15 +230,8 @@ public class SpaceGame : Game
         }
         else 
         {
-            if(waveCompleted)
-                {
-                    _spriteBatch.DrawString(_spriteFont, $"Wave {spawn.wave}", new Vector2(325,200), Color.Blue);
-                }
-            _spriteBatch.DrawString(_spriteFont, $"Ship Health: {ship.Health}", new Vector2(2,2), Color.Blue);
-            _spriteBatch.DrawString(_spriteFont, $"Wave: {spawn.wave}", new Vector2(650,2), Color.Blue);
-            _spriteBatch.DrawString(_spriteFont, $"Score: {score}", new Vector2(325,2), Color.Blue);
-            ship.Draw(gameTime, _spriteBatch);
-            foreach(EnemySprite enemy in enemys)
+            
+            foreach(IEnemy enemy in enemys)
             {
                 enemy.Draw(gameTime, _spriteBatch);
             }
@@ -215,6 +239,18 @@ public class SpaceGame : Game
             {
                 laser.Draw(gameTime, _spriteBatch);
             }
+            foreach(var laser in enemyLasers)
+            {
+                laser.Draw(gameTime, _spriteBatch); 
+            }
+            if(waveCompleted)
+            {
+                _spriteBatch.DrawString(_spriteFont, $"Wave {spawn.wave}", new Vector2(325,200), Color.Blue);
+            }
+            _spriteBatch.DrawString(_spriteFont, $"Ship Health: {ship.Health}", new Vector2(2,2), Color.Blue);
+            _spriteBatch.DrawString(_spriteFont, $"Wave: {spawn.wave}", new Vector2(650,2), Color.Blue);
+            _spriteBatch.DrawString(_spriteFont, $"Score: {score}", new Vector2(325,2), Color.Blue);
+            ship.Draw(gameTime, _spriteBatch);
         }
         _spriteBatch.End(); 
 

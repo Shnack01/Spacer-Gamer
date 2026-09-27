@@ -15,9 +15,11 @@ namespace SpacerGamer
 
     public interface IEnemy
     {
+        int points {get; set;}
+        int Health {get; set;}
         Vector2 Position { get; }
         BoundingCircle Bounds { get; }
-        bool hit { get; set; }
+        bool Destroyed { get; set; }
         Color color { get; set; }
         float spawnTimer { get; set; }
         public void LoadContent(ContentManager content);

@@ -40,7 +40,7 @@ namespace SpacerGamer
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (hit) return;
+            if (Destroyed) return;
 
             animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (animationTimer > ANIMATION_SPEED)

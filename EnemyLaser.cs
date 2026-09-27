@@ -10,7 +10,7 @@ using SpacerGamer.Collisions;
 namespace SpacerGamer{
 
 
-    public class Laser
+    public class EnemyLaser
     {
         private Texture2D texture;
         private Vector2 position;
@@ -19,7 +19,7 @@ namespace SpacerGamer{
 
         private BoundingRectangle bounds;
         public BoundingRectangle Bounds => bounds;
-        public Laser(Vector2 shipLocation)
+        public EnemyLaser(Vector2 shipLocation)
         {
             this.position = shipLocation;
             this.bounds = new BoundingRectangle(position, 2, 16);
@@ -32,10 +32,11 @@ namespace SpacerGamer{
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Laser");
+            
         }
         public void Update(GameTime gameTime)
         {
-            this.position.Y -= 8f;
+            this.position.Y += 8f;
             this.bounds.X = position.X;
             this.bounds.Y = position.Y;
         }

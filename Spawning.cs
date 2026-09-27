@@ -33,13 +33,37 @@ namespace SpacerGamer
         {
             
             enemies.Clear();
-            for(int i = 0;  i < enemyCount; i++)
+            if(wave > 4)
             {
-                float spawnDelay = (float)_rad.NextDouble() * wave;
-                float x = _rad.Next(0, screenWidth - 48);
-                int y = -48;
-                EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
-                enemies.Add(e);
+                for(int i = 0;  i < enemyCount; i++)
+                {
+                    float spawnDelay = (float)_rad.NextDouble() * wave;
+                    float x = _rad.Next(0, screenWidth - 48);
+                    int y = -48;
+                    EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
+                    enemies.Add(e);
+                }
+            }
+            else
+            {
+                
+                for(int j = 0; j < 2; j++)
+                {
+                    float spawnDelay = (float)_rad.NextDouble() * wave;
+                    float x = _rad.Next(0, screenWidth - 48);
+                    int y = -48;
+                    Sentry sE = new Sentry(spawnDelay, new Vector2(x,y));
+                    enemies.Add(sE);
+                }
+                for(int i = 0;  i < enemyCount - 2; i++)
+                {
+                    float spawnDelay = (float)_rad.NextDouble() * wave;
+                    float x = _rad.Next(0, screenWidth - 48);
+                    int y = -48;
+                    
+                    EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
+                    enemies.Add(e);
+                }
             }
             /*
             EnemySprite e = new EnemySprite(0, new Vector2(200, 200));

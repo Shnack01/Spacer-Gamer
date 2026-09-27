@@ -3,4 +3,5 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.0257126
 "C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.0076065
 "C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0123709
+"C:/Users/User/source/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/ShootingEnemyAnimated.xnb","TextureProcessor","Texture2DContent",1503,32853,0.1141028
 "C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.0036355

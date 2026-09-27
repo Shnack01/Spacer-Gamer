@@ -82,3 +82,4 @@ C:\Users\User\source\repos\Spacer-Gamer\obj\Debug\net9.0\refint\SpacerGamer.dll
 C:\Users\User\source\repos\Spacer-Gamer\obj\Debug\net9.0\SpacerGamer.pdb
 C:\Users\User\source\repos\Spacer-Gamer\obj\Debug\net9.0\SpacerGamer.genruntimeconfig.cache
 C:\Users\User\source\repos\Spacer-Gamer\obj\Debug\net9.0\ref\SpacerGamer.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\ShootingEnemyAnimated.xnb
