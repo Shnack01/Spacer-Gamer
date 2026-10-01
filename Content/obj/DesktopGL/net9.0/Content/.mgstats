@@ -1,7 +1,8 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Isaac/SpacerGamer/Content/arial.spritefont","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70681,0.2307276
-"C:/Users/Isaac/SpacerGamer/Content/EnemyShip.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.0123268
-"C:/Users/Isaac/SpacerGamer/Content/EnemyShipAnimated.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.0050955
-"C:/Users/Isaac/SpacerGamer/Content/Laser.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.005717
-"C:/Users/Isaac/SpacerGamer/Content/ShootingEnemyAnimated.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/ShootingEnemyAnimated.xnb","TextureProcessor","Texture2DContent",1503,32853,0.002558
-"C:/Users/Isaac/SpacerGamer/Content/SpaceShip.png","C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.002725
+"C:/Users/User/source/repos/Spacer-Gamer/Content/../../../../Downloads/SpaceBackground-export.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceBackground-export.xnb","TextureProcessor","Texture2DContent",31785,12800085,0.7082962
+"C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70681,0.426763
+"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.0248532
+"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.0082371
+"C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0131956
+"C:/Users/User/source/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/ShootingEnemyAnimated.xnb","TextureProcessor","Texture2DContent",1503,32853,0.0065168
+"C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.0038743

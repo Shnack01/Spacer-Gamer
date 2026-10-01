@@ -17,6 +17,11 @@ namespace SpacerGamer{
 
 public class SpaceGame : Game
 {
+    private float bgScroll = 0f;
+    private const float BgSpeed = 60f;
+    private float blinkTimer = 0f;
+    private const float BlinkDuration = 0.6f;
+    private const float BlinkInterval = 0.1f;
     private float waveTransitionTimer = 2f;
     private bool waveCompleted = true;
     private GamePadState gamePadState;
@@ -39,6 +44,7 @@ public class SpaceGame : Game
     private MouseState mouseState = new MouseState();
     private Texture2D staticShip;
     private Texture2D staticEnemy;
+    private Texture2D _background;
     
      
     private int score = 0;
@@ -85,12 +91,15 @@ public class SpaceGame : Game
         waveCompleted = true;
         waveTransitionTimer = 2f;
         score = 0;
+        blinkTimer = 0f;
         currentState = GameState.Playing;
         
     }
 
     protected override void LoadContent()
     {
+        
+        _background = Content.Load<Texture2D>("SpaceBackground-export");
         int buttonWidth = 200;
         int buttonHeight = 75;
         playAgainButtonBounds = new Rectangle(
@@ -137,6 +146,9 @@ public class SpaceGame : Game
         return; 
     }
         ship.Color = Color.White;
+        bgScroll += BgSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (bgScroll >= _background.Height) bgScroll = 0f;
+        if (blinkTimer > 0) blinkTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (enemys.Count == 0)
         {
             if (!waveCompleted) 
@@ -170,6 +182,7 @@ public class SpaceGame : Game
                 if (laser.Bounds.CollidesWith(ship.Bounds))
                 {
                     ship.Health--;
+                    blinkTimer = BlinkDuration;
                     laser.used = true;
                     if(ship.Health == 0)
                     {
@@ -219,6 +232,7 @@ public class SpaceGame : Game
             {
                 
                 ship.Health--;
+                blinkTimer = BlinkDuration;
                 enemy.Destroyed = true;
                 if(ship.Health == 0)
                 {
@@ -249,9 +263,14 @@ public class SpaceGame : Game
             sortMode: SpriteSortMode.Deferred,
             blendState: BlendState.AlphaBlend,
             samplerState: SamplerState.PointClamp);
+
+
         if(currentState == GameState.MainMenu)
         {
-            _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
+            _spriteBatch.Draw(_background,
+                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
+                Color.White);           
+             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
             _spriteBatch.DrawString(_spriteFont, "Play", new Vector2(365, 265), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
@@ -261,6 +280,9 @@ public class SpaceGame : Game
         }
         else if (currentState == GameState.GameOver)
         {
+            
+            
+
             _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, mainMenuButtonBounds, Color.BlueViolet);
             string lableMain = "Main Menu";
@@ -290,7 +312,18 @@ public class SpaceGame : Game
         }
         else 
         {
-            
+            _spriteBatch.End();
+
+            Matrix transform = Matrix.CreateTranslation(0, bgScroll, 0);
+            _spriteBatch.Begin(transformMatrix: transform, samplerState: SamplerState.PointClamp);
+            _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
+            _spriteBatch.Draw(_background, new Vector2(0, -_background.Height), Color.White);
+            _spriteBatch.End();
+
+            _spriteBatch.Begin(
+                sortMode: SpriteSortMode.Deferred,
+                blendState: BlendState.AlphaBlend,
+                samplerState: SamplerState.PointClamp);
             foreach(IEnemy enemy in enemys)
             {
                 enemy.Draw(gameTime, _spriteBatch);
@@ -310,7 +343,8 @@ public class SpaceGame : Game
             _spriteBatch.DrawString(_spriteFont, $"Ship Health: {ship.Health}", new Vector2(2,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Wave: {spawn.wave}", new Vector2(650,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Score: {score}", new Vector2(325,2), Color.Blue);
-            ship.Draw(gameTime, _spriteBatch);
+            bool visible = blinkTimer <= 0 || (int)(blinkTimer / BlinkInterval) % 2 == 0;
+            if (visible) ship.Draw(gameTime, _spriteBatch);
         }
         _spriteBatch.End(); 
 
