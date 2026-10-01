@@ -34,6 +34,8 @@ public class SpaceGame : Game
     private List<EnemyLaser> enemyLasers = new List<EnemyLaser>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
+    private Rectangle playAgainButtonBounds;
+    private Rectangle mainMenuButtonBounds;
     private MouseState mouseState = new MouseState();
     private Texture2D staticShip;
     private Texture2D staticEnemy;
@@ -71,9 +73,29 @@ public class SpaceGame : Game
         laser.LoadContent(Content);
         enemyLasers.Add(laser);
     }
+    private void Restart()
+    {
+        enemyLasers = new List<EnemyLaser>();
+        enemys = new List<IEnemy>();
+        lasers = new List<Laser>();
+        ship = new SpaceShipSprite();
+        ship.LoadContent(Content);
+        ship.LaserFired += LaserFired;
+        spawn = new Spawning(screenWidth);
+        waveCompleted = true;
+        waveTransitionTimer = 2f;
+        score = 0;
+        currentState = GameState.Playing;
+        
+    }
 
     protected override void LoadContent()
     {
+        int buttonWidth = 200;
+        int buttonHeight = 75;
+        playAgainButtonBounds = new Rectangle(
+        (GraphicsDevice.Viewport.Width - buttonWidth) / 2, (GraphicsDevice.Viewport.Height - buttonHeight) / 2, buttonWidth, buttonHeight);
+        mainMenuButtonBounds = new Rectangle((GraphicsDevice.Viewport.Width - buttonWidth) / 2, (GraphicsDevice.Viewport.Height - buttonHeight + 200) / 2, buttonWidth, buttonHeight);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         buttonTexture = new Texture2D(GraphicsDevice, 1, 1);
         staticEnemy = Content.Load<Texture2D>("EnemyShip");
@@ -91,13 +113,27 @@ public class SpaceGame : Game
         priorGamePadState = gamePadState;
         gamePadState = GamePad.GetState(0);
         mouseState = Mouse.GetState();
-        if((playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) currentState = GameState.Playing;
+        if((playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) {currentState = GameState.Playing; Restart();}
         base.Update(gameTime);
         return;
     }
     else if (currentState == GameState.GameOver)
     {
+        priorGamePadState = gamePadState;
+        gamePadState = GamePad.GetState(0);
+        mouseState = Mouse.GetState();
+        if((playAgainButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) 
+        {
+            Restart();
+            currentState = GameState.Playing;
+        }
+        priorGamePadState = gamePadState;
+        gamePadState = GamePad.GetState(0);
+        mouseState = Mouse.GetState();
+        if((mainMenuButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) currentState = GameState.MainMenu;
+
         base.Update(gameTime);
+        
         return; 
     }
         ship.Color = Color.White;
@@ -223,10 +259,34 @@ public class SpaceGame : Game
             _spriteBatch.Draw(staticShip, new Vector2(250, 200), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
             _spriteBatch.Draw(staticEnemy, new Vector2(630, 50), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
         }
-        else if(currentState == GameState.GameOver)
+        else if (currentState == GameState.GameOver)
         {
-            _spriteBatch.DrawString(_spriteFont, $"Game Over", new Vector2(300,200), Color.Blue);
-            _spriteBatch.DrawString(_spriteFont, $"Wave Reached: {spawn.wave}     Score: {score}", new Vector2(150,250), Color.Blue);
+            _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);
+            _spriteBatch.Draw(buttonTexture, mainMenuButtonBounds, Color.BlueViolet);
+            string lableMain = "Main Menu";
+            Vector2 textMainSize = _spriteFont.MeasureString(lableMain);
+            Vector2 textMainPos = new Vector2(
+                mainMenuButtonBounds.Center.X - textMainSize.X / 2,
+                mainMenuButtonBounds.Center.Y - textMainSize.Y / 2);
+            string label = "Play Again";
+            Vector2 textPlayAgainSize = _spriteFont.MeasureString(label);
+            Vector2 textPlayAgainPos = new Vector2(
+                playAgainButtonBounds.Center.X - textPlayAgainSize.X / 2,
+                playAgainButtonBounds.Center.Y - textPlayAgainSize.Y / 2);
+            string labelWRS = $"Wave Reached: {spawn.wave}     Score: {score}";
+            Vector2 textWRSSize = _spriteFont.MeasureString(labelWRS);
+            Vector2 textWRSPos = new Vector2(
+                (GraphicsDevice.Viewport.Width - textWRSSize.X) / 2,
+                130);
+            string lableOver = "Game Over";
+            Vector2 textOverize = _spriteFont.MeasureString(lableOver);
+            Vector2 textOverPos = new Vector2(
+                (GraphicsDevice.Viewport.Width - textOverize.X) / 2,
+                80);
+            _spriteBatch.DrawString(_spriteFont, lableMain, textMainPos, Color.White);
+            _spriteBatch.DrawString(_spriteFont, lableOver, textOverPos, Color.Blue);
+            _spriteBatch.DrawString(_spriteFont, labelWRS, textWRSPos, Color.Blue);
+            _spriteBatch.DrawString(_spriteFont, label, textPlayAgainPos, Color.White);
         }
         else 
         {

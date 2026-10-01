@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</SourceFile>
-  <SourceTime>2026-09-18T20:10:40.4303591-05:00</SourceTime>
-  <DestFile>C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb</DestFile>
-  <DestTime>2026-09-18T20:11:11.1530353-05:00</DestTime>
+  <SourceFile>C:/Users/Isaac/SpacerGamer/Content/EnemyShipAnimated.png</SourceFile>
+  <SourceTime>2026-09-18T18:55:22.1934151-05:00</SourceTime>
+  <DestFile>C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb</DestFile>
+  <DestTime>2026-10-01T11:11:35.8735294-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2026-08-14T16:50:10-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
