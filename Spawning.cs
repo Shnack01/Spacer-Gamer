@@ -33,7 +33,7 @@ namespace SpacerGamer
         {
             
             enemies.Clear();
-            if(wave > 4)
+            if(wave < 4)
             {
                 for(int i = 0;  i < enemyCount; i++)
                 {
