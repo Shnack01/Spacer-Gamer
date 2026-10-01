@@ -267,10 +267,17 @@ public class SpaceGame : Game
 
         if(currentState == GameState.MainMenu)
         {
-            _spriteBatch.Draw(_background,
-                new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
-                Color.White);           
-             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
+            _spriteBatch.End();
+            Matrix transform = Matrix.CreateTranslation(0, 0, 0);
+            _spriteBatch.Begin(transformMatrix: transform, samplerState: SamplerState.PointClamp);
+            _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
+            _spriteBatch.Draw(_background, new Vector2(0, _background.Height), Color.White);
+            _spriteBatch.End();
+            _spriteBatch.Begin(
+                sortMode: SpriteSortMode.Deferred,
+                blendState: BlendState.AlphaBlend,
+                samplerState: SamplerState.PointClamp);
+            _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
             _spriteBatch.DrawString(_spriteFont, "Play", new Vector2(365, 265), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
@@ -280,9 +287,6 @@ public class SpaceGame : Game
         }
         else if (currentState == GameState.GameOver)
         {
-            
-            
-
             _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, mainMenuButtonBounds, Color.BlueViolet);
             string lableMain = "Main Menu";
