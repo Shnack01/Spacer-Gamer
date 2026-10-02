@@ -13,19 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../Downloads/SpaceBackground-export.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/processorParam:Version=3.8.5.1
-/build:../../../../Downloads/SpaceBackground-export.png;SpaceBackground-export.png
-
 #begin arial.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -33,6 +20,20 @@
 /processorParam:TextureFormat=Compressed
 /processorParam:Version=3.8.5.1
 /build:arial.spritefont
+
+#begin BeepBox-Song.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.1
+/build:BeepBox-Song.mp3
+
+#begin Boom7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.1
+/build:Boom7.wav
 
 #begin EnemyShip.png
 /importer:TextureImporter
@@ -60,6 +61,13 @@
 /processorParam:Version=3.8.5.1
 /build:EnemyShipAnimated.png
 
+#begin Hit1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.1
+/build:Hit1.wav
+
 #begin Laser.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -73,6 +81,13 @@
 /processorParam:Version=3.8.5.1
 /build:Laser.png
 
+#begin Laserfired.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.1
+/build:Laserfired.wav
+
 #begin ShootingEnemyAnimated.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,6 +100,19 @@
 /processorParam:TextureFormat=Color
 /processorParam:Version=3.8.5.1
 /build:ShootingEnemyAnimated.png
+
+#begin SpaceBackground-export.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/processorParam:Version=3.8.5.1
+/build:SpaceBackground-export.png
 
 #begin SpaceShip.png
 /importer:TextureImporter

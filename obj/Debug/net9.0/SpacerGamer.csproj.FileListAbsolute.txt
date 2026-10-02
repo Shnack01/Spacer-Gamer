@@ -85,3 +85,9 @@ C:\Users\User\source\repos\Spacer-Gamer\obj\Debug\net9.0\ref\SpacerGamer.dll
 C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\ShootingEnemyAnimated.xnb
 C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\ShootingEnemyAnimated.xnb
 C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\SpaceBackground-export.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\SpaceBackground-export.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\Boom7.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\Hit1.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\Laserfired.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\BeepBox-Song.xnb
+C:\Users\Isaac\SpacerGamer\bin\Debug\net9.0\Content\BeepBox-Song.ogg

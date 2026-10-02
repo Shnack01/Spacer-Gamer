@@ -5,6 +5,8 @@ using System;
 using SpacerGamer.Collisions;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 enum GameState 
 { 
@@ -17,6 +19,9 @@ namespace SpacerGamer{
 
 public class SpaceGame : Game
 {
+    private SoundEffect hit;
+    private SoundEffect laserFired;
+    private SoundEffect boom;
     private float bgScroll = 0f;
     private const float BgSpeed = 60f;
     private float blinkTimer = 0f;
@@ -45,6 +50,7 @@ public class SpaceGame : Game
     private Texture2D staticShip;
     private Texture2D staticEnemy;
     private Texture2D _background;
+    private Song backGroundMisic;
     
      
     private int score = 0;
@@ -69,14 +75,17 @@ public class SpaceGame : Game
     }
     private void LaserFired(Vector2 shipPosition)
     {
+        
         var laser = new Laser(shipPosition);
         laser.LoadContent(Content);
+        laserFired.Play();
         lasers.Add(laser);
     }
     private void EnemyLaserFired(Vector2 enemyPosition)
     {
         var laser = new EnemyLaser(enemyPosition);
         laser.LoadContent(Content);
+        laserFired.Play();
         enemyLasers.Add(laser);
     }
     private void Restart()
@@ -92,7 +101,9 @@ public class SpaceGame : Game
         waveTransitionTimer = 2f;
         score = 0;
         blinkTimer = 0f;
+        MediaPlayer.Play(backGroundMisic);
         currentState = GameState.Playing;
+
         
     }
 
@@ -112,6 +123,12 @@ public class SpaceGame : Game
         buttonTexture.SetData(new[] { Color.White }); 
         _spriteFont = Content.Load<SpriteFont>("arial");
         ship.LoadContent(Content);
+        hit = Content.Load<SoundEffect>("Hit1");
+        boom = Content.Load<SoundEffect>("Boom7");
+        laserFired = Content.Load<SoundEffect>("LaserFired");
+        backGroundMisic = Content.Load<Song>("BeepBox-Song");
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Volume = 0.3f;
         
     }
 
@@ -128,6 +145,7 @@ public class SpaceGame : Game
     }
     else if (currentState == GameState.GameOver)
     {
+        MediaPlayer.Stop();
         priorGamePadState = gamePadState;
         gamePadState = GamePad.GetState(0);
         mouseState = Mouse.GetState();
@@ -145,6 +163,8 @@ public class SpaceGame : Game
         
         return; 
     }
+        
+        
         ship.Color = Color.White;
         bgScroll += BgSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (bgScroll >= _background.Height) bgScroll = 0f;
@@ -203,7 +223,11 @@ public class SpaceGame : Game
                 {
                     enemy.color = Color.Red;
                     enemy.Health--;
-                    if(enemy.Health == 0) enemy.Destroyed = true;
+                    if(enemy.Health == 0) 
+                    {enemy.Destroyed = true;
+                    boom.Play();
+                    }
+
                     laser.used = true;
                     
                     
@@ -232,14 +256,16 @@ public class SpaceGame : Game
             {
                 
                 ship.Health--;
+                
                 blinkTimer = BlinkDuration;
                 enemy.Destroyed = true;
                 if(ship.Health == 0)
                 {
+                    boom.Play();
                     ship.Explode();
                     currentState = GameState.GameOver;
                 }
-                
+                hit.Play();
                 ship.Color = Color.Red;
                 
             }
