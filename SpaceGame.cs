@@ -279,7 +279,8 @@ public class SpaceGame : Game
         
     }
     
-
+    //Make a class that takes a string and a Y position, and returns the vector2 where the text should be drawn to be perfectly in the middle of the screen, x wise.
+    private Vector2 CenterText(string text, float y) {return new Vector2();}
     protected override void Draw(GameTime gameTime)
     {
         Color space = new Color(28, 28, 28);
@@ -304,10 +305,11 @@ public class SpaceGame : Game
                 blendState: BlendState.AlphaBlend,
                 samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
-            _spriteBatch.DrawString(_spriteFont, "Play", new Vector2(365, 265), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "Play/START", new Vector2(312, 268), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "L Ctrl/B button to Blink", new Vector2(240, 80), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "Q/LB to Dash Left", new Vector2(270, 80), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "E/RB to Dash Right", new Vector2(270, 120), Color.White);
             _spriteBatch.Draw(staticShip, new Vector2(250, 200), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
             _spriteBatch.Draw(staticEnemy, new Vector2(630, 50), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
         }
