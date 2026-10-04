@@ -41,7 +41,7 @@ public class SpaceGame : Game, IParticleEmitter
     public int screenWidth;
     public int screenHeight;
     private SpriteBatch _spriteBatch;
-    private SpaceShipSprite ship;
+    private ShipBase ship;
     private SpriteFont _spriteFont;
     public List<IEnemy> enemys = new List<IEnemy>();
     private List<Laser> lasers = new List<Laser>();
@@ -210,7 +210,7 @@ public class SpaceGame : Game, IParticleEmitter
         ship.Update(gameTime);
         
         Velocity = new Vector2(0, 1); 
-        Position = new Vector2(ship.Posision.X + 1, ship.Bounds.Bottom - 10);
+        Position = new Vector2(ship.Position.X + 2, ship.Bounds.Bottom - 20);
         foreach(var laser in enemyLasers)
         {
             laser.Update(gameTime);
