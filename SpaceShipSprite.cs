@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using SpacerGamer.Collisions;
+using SpacerGamer.ParticleStuff;
 namespace SpacerGamer
 {
     
@@ -41,6 +42,7 @@ namespace SpacerGamer
         {
             texture = content.Load<Texture2D>("SpaceShip");
         }
+        
 
         /// <summary>
         /// Updates the sprite's position based on user input

@@ -4,19 +4,21 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Isaac/SpacerGamer/Content/arial.spritefont</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/BeepBox-Song.mp3</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/Boom7.wav</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/EnemyShip.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/EnemyShipAnimated.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/Hit1.wav</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/Laser.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/Laserfired.wav</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/ShootingEnemyAnimated.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/SpaceBackground-export.png</File>
-    <File>C:/Users/Isaac/SpacerGamer/Content/SpaceShip.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/BeepBox-Song.mp3</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Boom7.wav</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Hit1.wav</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Laserfired.wav</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/particle.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceBackground-export.png</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

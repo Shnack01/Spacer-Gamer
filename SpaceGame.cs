@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using SpacerGamer.ParticleStuff;
 
 enum GameState 
 { 
@@ -17,8 +18,11 @@ enum GameState
 
 namespace SpacerGamer{
 
-public class SpaceGame : Game
+public class SpaceGame : Game, IParticleEmitter
 {
+    EngineParticle _engineParticle;
+    public Vector2 Position {get; set;}
+    public Vector2 Velocity {get; set;}
     private SoundEffect hit;
     private SoundEffect laserFired;
     private SoundEffect boom;
@@ -71,6 +75,9 @@ public class SpaceGame : Game
         ship = new SpaceShipSprite();
         spawn = new Spawning(screenWidth);
         ship.LaserFired += LaserFired;
+        _engineParticle = new EngineParticle(this, this);
+        Components.Add(_engineParticle);
+        
         base.Initialize();
     }
     private void LaserFired(Vector2 shipPosition)
@@ -102,6 +109,8 @@ public class SpaceGame : Game
         score = 0;
         blinkTimer = 0f;
         MediaPlayer.Play(backGroundMisic);
+        _engineParticle = new EngineParticle(this, this);
+        Components.Add(_engineParticle);
         currentState = GameState.Playing;
 
         
@@ -136,6 +145,8 @@ public class SpaceGame : Game
     {
     if(currentState == GameState.MainMenu)
     {
+        _engineParticle.Enabled = false; 
+        _engineParticle.Visible = false;
         priorGamePadState = gamePadState;
         gamePadState = GamePad.GetState(0);
         mouseState = Mouse.GetState();
@@ -145,6 +156,8 @@ public class SpaceGame : Game
     }
     else if (currentState == GameState.GameOver)
     {
+        _engineParticle.Enabled = false; 
+        _engineParticle.Visible = false;
         MediaPlayer.Stop();
         priorGamePadState = gamePadState;
         gamePadState = GamePad.GetState(0);
@@ -195,6 +208,9 @@ public class SpaceGame : Game
         }
         
         ship.Update(gameTime);
+        
+        Velocity = new Vector2(0, 1); 
+        Position = new Vector2(ship.Posision.X + 1, ship.Bounds.Bottom - 10);
         foreach(var laser in enemyLasers)
         {
             laser.Update(gameTime);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Isaac/SpacerGamer/Content/BeepBox-Song.mp3</SourceFile>
-  <SourceTime>2026-10-02T00:38:49.0267033-05:00</SourceTime>
-  <DestFile>C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/BeepBox-Song.xnb</DestFile>
-  <DestTime>2026-10-02T00:39:21.4555938-05:00</DestTime>
+  <SourceFile>C:/Users/User/source/repos/Spacer-Gamer/Content/BeepBox-Song.mp3</SourceFile>
+  <SourceTime>2026-10-02T21:28:25.4557844-05:00</SourceTime>
+  <DestFile>C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/BeepBox-Song.xnb</DestFile>
+  <DestTime>2026-10-02T21:28:48.0995457-05:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2026-08-14T16:50:10-05:00</ImporterTime>
   <Processor>SongProcessor</Processor>
@@ -19,6 +19,6 @@
   <Dependencies />
   <BuildAsset />
   <BuildOutput>
-    <string>C:/Users/Isaac/SpacerGamer/Content/bin/DesktopGL/Content/BeepBox-Song.ogg</string>
+    <string>C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/BeepBox-Song.ogg</string>
   </BuildOutput>
 </PipelineBuildEvent>
