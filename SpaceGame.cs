@@ -170,7 +170,7 @@ public class SpaceGame : Game, IParticleEmitter
         priorGamePadState = gamePadState;
         gamePadState = GamePad.GetState(0);
         mouseState = Mouse.GetState();
-        if((mainMenuButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) currentState = GameState.MainMenu;
+        if((mainMenuButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)) currentState = GameState.MainMenu;
 
         base.Update(gameTime);
         
