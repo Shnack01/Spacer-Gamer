@@ -19,20 +19,20 @@ namespace SpacerGamer
         {
             this.cooldown = cooldown;
         }
-        public void Update(GameTime gt)
+        public void Update(GameTime gameTime)
     {
-        if (timer > 0) timer -= (float)gt.ElapsedGameTime.TotalSeconds;
+        if (timer > 0) timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 
-    public bool TryFire(Vector2 muzzle, List<Laser> projectiles)
+    public bool TryFire(Vector2 location, List<Laser> projectiles)
     {
         if (timer > 0) return false;
         timer = cooldown;
-        Fire(muzzle, projectiles);
+        Fire(location, projectiles);
         return true;
     }
 
-    protected abstract void Fire(Vector2 muzzle, List<Laser> projectiles);
+    protected abstract void Fire(Vector2 location, List<Laser> projectiles);
 
     }
 }

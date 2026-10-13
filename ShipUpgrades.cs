@@ -14,7 +14,7 @@ namespace SpacerGamer
             _ship = ship;
         }
 
-        public ShipBase IncreaseShip
+        public ShipBase IncreaseShip;
 
     }
 }
