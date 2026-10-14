@@ -26,7 +26,7 @@ namespace SpacerGamer
 
         public override void Draw(GameTime gameTime)
         {
-            buttonTexture = new Texture2D(GraphicsDevice, 1, 1);
+            buttonTexture = new Texture2D(ScreenManager.GraphicsDevice, 1, 1);
             buttonTexture.SetData(new[] { Color.White }); 
             
             var sb = ScreenManager.SpriteBatch;
@@ -35,8 +35,8 @@ namespace SpacerGamer
             sortMode: SpriteSortMode.Deferred,
             blendState: BlendState.AlphaBlend,
             samplerState: SamplerState.PointClamp);
-            sb.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
-            sb.Draw(buttonTexture, upgradeButtonBounds, Color.BlueViolet);
+            sb.Draw(buttonTexture, splitButtonBounds, Color.BlueViolet);
+            sb.Draw(buttonTexture, singleButtonBounds, Color.BlueViolet);
             sb.DrawString(ScreenManager.MenuFont, $"{_ship.weapon.ToString()}", new Vector2(200, 200), Color.White);
             sb.End();
             base.Draw(gameTime);
