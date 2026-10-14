@@ -13,8 +13,6 @@ namespace SpacerGamer
 {
     public class SingleShot : WeaponBase
     {
-        protected float cooldown = 1f;
-        protected float timer;
         public SingleShot() : base(.25f)
         {
             

@@ -12,6 +12,7 @@ namespace SpacerGamer{
 
     public class Laser
     {
+        public Vector2 direction = new Vector2(0, 8f);
         private Texture2D texture;
         private Vector2 position;
         public bool used;
@@ -35,7 +36,8 @@ namespace SpacerGamer{
         }
         public void Update(GameTime gameTime)
         {
-            this.position.Y -= 8f;
+            
+            this.position -= direction;
             this.bounds.X = position.X;
             this.bounds.Y = position.Y;
         }

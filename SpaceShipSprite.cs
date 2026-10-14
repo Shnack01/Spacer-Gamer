@@ -11,14 +11,16 @@ namespace SpacerGamer
         private KeyboardState priorKeyboardState;
         private bool lastDirectionLeft = true;
 
-        public SpaceShipSprite()
-            : base(new Vector2(400, 400), maxHealth: 3, textureName: "SpaceShip", scale: 3f, hitboxScale: 0.6f)
+        public SpaceShipSprite() : base(new Vector2(400, 400), maxHealth: 3, textureName: "SpaceShip", scale: 3f, hitboxScale: 0.6f)
         {
             boundsOffset = new Vector2(3f, 0f);
+            weapon = new SingleShot();
         }
 
         public override void Update(GameTime gameTime)
         {
+            if(heatLevel > 0) heatLevel--;
+            weapon.Update(gameTime);  
             priorGamePadState = gamePadState;
             gamePadState = GamePad.GetState(0);
             priorKeyboardState = keyboardState;
@@ -45,6 +47,11 @@ namespace SpacerGamer
                 (gamePadState.IsButtonDown(Buttons.A) && priorGamePadState.IsButtonUp(Buttons.A)))
             {
                 Fire();
+            }
+            if (keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A) && weapon is DeathRay && heatLevel > 100)
+            {
+                Fire();
+                heatLevel += 100;//notworking
             }
 
             if ((keyboardState.IsKeyDown(Keys.E) && priorKeyboardState.IsKeyUp(Keys.E)) ||

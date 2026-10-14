@@ -82,11 +82,14 @@ public class SpaceGame : Game, IParticleEmitter
     }
     private void LaserFired(Vector2 shipPosition)
     {
-        ship.weapon.TryFire(ship.Position, lasers);
-        var laser = new Laser(shipPosition);
-        laser.LoadContent(Content);
+        int i = lasers.Count;
+        if(!ship.TryFireWeapon(ship.Position, lasers)) return;
+        foreach(Laser laser in lasers)
+            {
+                laser.LoadContent(Content);
+            }
+        
         laserFired.Play();
-        lasers.Add(laser);
     }
     private void EnemyLaserFired(Vector2 enemyPosition)
     {

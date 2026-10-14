@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +9,8 @@ namespace SpacerGamer
 {
     public abstract class ShipBase : IShip
     {
-        // Shared state
+        public int heatLevel {get; set;} = 0;
+        protected WeaponBase weapon;
         protected Vector2 position;
         protected Texture2D texture;
         protected BoundingRectangle bounds = new BoundingRectangle(Vector2.Zero, 1, 1);
@@ -16,7 +18,7 @@ namespace SpacerGamer
         protected readonly float scale;
         protected readonly float hitboxScale;
         protected Vector2 boundsOffset = Vector2.Zero;
-        protected Vector2 muzzleOffset = new Vector2(0, -24f);
+        protected Vector2 muzzleOffset = new Vector2(3, -30f);
 
         public event Action<Vector2> LaserFired;
 
@@ -68,6 +70,10 @@ namespace SpacerGamer
         protected void Fire()
         {
             LaserFired?.Invoke(position + muzzleOffset);
+        }
+        public bool TryFireWeapon(Vector2 location, List<Laser> list)
+        {
+            return weapon != null && weapon.TryFire(position + muzzleOffset, list);
         }
 
         protected virtual void UpdateBounds()
