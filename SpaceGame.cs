@@ -13,7 +13,8 @@ enum GameState
 { 
     MainMenu, 
     Playing, 
-    GameOver 
+    GameOver,
+    Edit
 }
 
 namespace SpacerGamer{
@@ -48,6 +49,7 @@ public class SpaceGame : Game, IParticleEmitter
     private List<EnemyLaser> enemyLasers = new List<EnemyLaser>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
+    private Rectangle upgradeButtonBounds = new Rectangle(300, 350, 200, 75);
     private Rectangle playAgainButtonBounds;
     private Rectangle mainMenuButtonBounds;
     private MouseState mouseState = new MouseState();
@@ -55,6 +57,7 @@ public class SpaceGame : Game, IParticleEmitter
     private Texture2D staticEnemy;
     private Texture2D _background;
     private Song backGroundMisic;
+    private ScreenManager screenManager;
     
      
     private int score = 0;
@@ -71,7 +74,10 @@ public class SpaceGame : Game, IParticleEmitter
 
     protected override void Initialize()
     {
+        screenManager = new ScreenManager(this);
         
+        this.Services.AddService(typeof(ScreenManager), screenManager);
+        Components.Add(screenManager);
         ship = new SpaceShipSprite();
         spawn = new Spawning(screenWidth);
         ship.LaserFired += LaserFired;
@@ -146,39 +152,53 @@ public class SpaceGame : Game, IParticleEmitter
 
     protected override void Update(GameTime gameTime)
     {
-    if(currentState == GameState.MainMenu)
-    {
-        _engineParticle.Enabled = false; 
-        _engineParticle.Visible = false;
-        priorGamePadState = gamePadState;
-        gamePadState = GamePad.GetState(0);
-        mouseState = Mouse.GetState();
-        if((playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) {currentState = GameState.Playing; Restart();}
-        base.Update(gameTime);
-        return;
-    }
-    else if (currentState == GameState.GameOver)
-    {
-        _engineParticle.Enabled = false; 
-        _engineParticle.Visible = false;
-        MediaPlayer.Stop();
-        priorGamePadState = gamePadState;
-        gamePadState = GamePad.GetState(0);
-        mouseState = Mouse.GetState();
-        if((playAgainButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) 
+        if(currentState == GameState.MainMenu)
         {
-            Restart();
-            currentState = GameState.Playing;
-        }
-        priorGamePadState = gamePadState;
-        gamePadState = GamePad.GetState(0);
-        mouseState = Mouse.GetState();
-        if((mainMenuButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)) currentState = GameState.MainMenu;
+            _engineParticle.Enabled = false; 
+            _engineParticle.Visible = false;
+            priorGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(0);
+            mouseState = Mouse.GetState();
+            if((playButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) 
+            {currentState = GameState.Playing; Restart();}
 
-        base.Update(gameTime);
-        
-        return; 
-    }
+            if((upgradeButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Back) && priorGamePadState.IsButtonUp(Buttons.Start))) 
+            {
+                currentState = GameState.Edit; 
+                screenManager.AddScreen(new ShipUpgrade(this, ship));
+                
+            }
+
+            base.Update(gameTime);
+            return;
+        }
+        else if (currentState == GameState.Edit)
+        {
+            base.Update(gameTime);
+            return;
+        }
+        else if (currentState == GameState.GameOver)
+        {
+            _engineParticle.Enabled = false; 
+            _engineParticle.Visible = false;
+            MediaPlayer.Stop();
+            priorGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(0);
+            mouseState = Mouse.GetState();
+            if((playAgainButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start))) 
+            {
+                Restart();
+                currentState = GameState.Playing;
+            }
+            priorGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(0);
+            mouseState = Mouse.GetState();
+            if((mainMenuButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)) currentState = GameState.MainMenu;
+
+            base.Update(gameTime);
+            
+            return; 
+        }
         
         
         ship.Color = Color.White;
@@ -324,14 +344,22 @@ public class SpaceGame : Game, IParticleEmitter
                 blendState: BlendState.AlphaBlend,
                 samplerState: SamplerState.PointClamp);
             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
+            _spriteBatch.Draw(buttonTexture, upgradeButtonBounds, Color.BlueViolet);
             _spriteBatch.DrawString(_spriteFont, "Play/START", new Vector2(312, 268), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Q/LB to Dash Left", new Vector2(270, 80), Color.White);
             _spriteBatch.DrawString(_spriteFont, "E/RB to Dash Right", new Vector2(270, 120), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "Edit Ship", new Vector2(335, 370), Color.White);
             _spriteBatch.Draw(staticShip, new Vector2(250, 200), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
             _spriteBatch.Draw(staticEnemy, new Vector2(630, 50), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
         }
+        else if (currentState == GameState.Edit)
+            {
+                _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
+                _spriteBatch.Draw(_background, new Vector2(0, _background.Height), Color.White);
+
+            }
         else if (currentState == GameState.GameOver)
         {
             _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);

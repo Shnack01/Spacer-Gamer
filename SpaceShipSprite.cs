@@ -14,7 +14,7 @@ namespace SpacerGamer
         public SpaceShipSprite() : base(new Vector2(400, 400), maxHealth: 3, textureName: "SpaceShip", scale: 3f, hitboxScale: 0.6f)
         {
             boundsOffset = new Vector2(3f, 0f);
-            weapon = new SingleShot();
+            weapon = new SplitShot();
         }
 
         public override void Update(GameTime gameTime)

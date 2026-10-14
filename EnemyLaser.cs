@@ -54,5 +54,6 @@ namespace SpacerGamer{
             Vector2 origin = new Vector2(1f, 8f);
             spriteBatch.Draw(texture, position, source, Color.White, 0, origin, 3f, SpriteEffects.None, 0);
         }
+        
     }
 }

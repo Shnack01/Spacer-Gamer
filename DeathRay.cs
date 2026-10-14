@@ -12,6 +12,7 @@ using SpacerGamer.ParticleStuff;
 namespace SpacerGamer
 {
     public class DeathRay : WeaponBase{
+        
         public DeathRay() : base(0f)
         {
             

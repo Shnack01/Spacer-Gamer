@@ -6,15 +6,43 @@ using SpacerGamer.Collisions;
 
 namespace SpacerGamer
 {
-    public abstract class ShipUpgrade
+    public class ShipUpgrade : GameScreen
     {
+        private Texture2D buttonTexture;
+        private Rectangle splitButtonBounds = new Rectangle(300, 250, 200, 75);
+        private Rectangle rayButtonBounds = new Rectangle(300, 250, 200, 75);
+        private Rectangle singleButtonBounds = new Rectangle(300, 250, 200, 75);
+
+
+        private SpriteFont _spriteFont;
         private ShipBase _ship;
-        public ShipUpgrade(ShipBase ship)
+
+
+        public ShipUpgrade(Game game, ShipBase ship)
         {
             _ship = ship;
         }
+        
 
-        public ShipBase IncreaseShip;
+        public override void Draw(GameTime gameTime)
+        {
+            buttonTexture = new Texture2D(GraphicsDevice, 1, 1);
+            buttonTexture.SetData(new[] { Color.White }); 
+            
+            var sb = ScreenManager.SpriteBatch;
+
+            sb.Begin(
+            sortMode: SpriteSortMode.Deferred,
+            blendState: BlendState.AlphaBlend,
+            samplerState: SamplerState.PointClamp);
+            sb.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
+            sb.Draw(buttonTexture, upgradeButtonBounds, Color.BlueViolet);
+            sb.DrawString(ScreenManager.MenuFont, $"{_ship.weapon.ToString()}", new Vector2(200, 200), Color.White);
+            sb.End();
+            base.Draw(gameTime);
+        }
+
+        
 
     }
 }
