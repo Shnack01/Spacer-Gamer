@@ -174,6 +174,12 @@ public class SpaceGame : Game, IParticleEmitter
         }
         else if (currentState == GameState.Edit)
         {
+            _engineParticle.Enabled = false;
+            _engineParticle.Visible = false;
+
+            if (screenManager.GetScreens().Length == 0)
+                currentState = GameState.MainMenu;
+
             base.Update(gameTime);
             return;
         }
