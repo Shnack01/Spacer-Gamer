@@ -10,6 +10,7 @@ namespace SpacerGamer.ParticleStuff
     
     public class EngineParticle : ParticleSystem
     {
+        public Color color = Color.OrangeRed;
         IParticleEmitter _emitter;
         public EngineParticle(Game game, IParticleEmitter emitter) : base(game, 2000)
         {
@@ -37,7 +38,7 @@ namespace SpacerGamer.ParticleStuff
 
             var lifetime = RandomHelper.NextFloat(0.15f, .5f);
 
-            p.Initialize(where, velocity, Acceleration, Color.OrangeRed, scale: scale, lifetime: lifetime);
+            p.Initialize(where, velocity, Acceleration, color, scale: scale, lifetime: lifetime);
 
             
         }

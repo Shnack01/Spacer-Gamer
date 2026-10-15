@@ -48,7 +48,7 @@ namespace SpacerGamer
             {
                 Fire();
             }
-            if (keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A) && weapon is DeathRay && heatLevel > 100)
+            if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay&& heatLevel > 100))
             {
                 Fire();
                 heatLevel += 100;//notworking

@@ -109,7 +109,9 @@ public class SpaceGame : Game, IParticleEmitter
         enemyLasers = new List<EnemyLaser>();
         enemys = new List<IEnemy>();
         lasers = new List<Laser>();
+        WeaponBase weaponBase = ship.weapon;
         ship = new SpaceShipSprite();
+        ship.weapon = weaponBase;
         ship.LoadContent(Content);
         ship.LaserFired += LaserFired;
         spawn = new Spawning(screenWidth);
@@ -119,6 +121,8 @@ public class SpaceGame : Game, IParticleEmitter
         blinkTimer = 0f;
         MediaPlayer.Play(backGroundMisic);
         _engineParticle = new EngineParticle(this, this);
+        
+        _engineParticle.color = Color.HotPink;
         Components.Add(_engineParticle);
         currentState = GameState.Playing;
 

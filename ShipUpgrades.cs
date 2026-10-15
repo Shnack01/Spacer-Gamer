@@ -18,7 +18,6 @@ namespace SpacerGamer
         private GamePadState gamePadState = new GamePadState();
         private KeyboardState keyboardState = new KeyboardState();
         private KeyboardState priorKeyboardState;
-        private SpriteFont _spriteFont;
         private ShipBase _ship;
 
 
@@ -43,6 +42,11 @@ namespace SpacerGamer
                 _ship.weapon = new SingleShot();
                 
             }
+            if((rayButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start)))
+            {
+                _ship.weapon = new DeathRay();
+                
+            }
             if((keyboardState.IsKeyUp(Keys.Escape) && priorKeyboardState.IsKeyDown(Keys.Escape)) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start)))
             {
                 ExitScreen();
@@ -62,9 +66,14 @@ namespace SpacerGamer
             sortMode: SpriteSortMode.Deferred,
             blendState: BlendState.AlphaBlend,
             samplerState: SamplerState.PointClamp);
-            sb.Draw(buttonTexture, splitButtonBounds, Color.BlueViolet);
+            sb.Draw(buttonTexture, splitButtonBounds, Color.BlueViolet);   
+            sb.Draw(buttonTexture, rayButtonBounds, Color.BlueViolet);
             sb.Draw(buttonTexture, singleButtonBounds, Color.BlueViolet);
-            sb.DrawString(ScreenManager.MenuFont, $"Current Weapon: {_ship.weapon.ToString()}", new Vector2(200, 100), Color.White);
+            sb.DrawString(ScreenManager.MenuFont, $"Current Weapon: {_ship.weapon.ToString()}", new Vector2(100, 70), Color.White);
+            sb.DrawString(ScreenManager.MenuFont, $"Split Shot", new Vector2(330, 170), Color.White);
+            sb.DrawString(ScreenManager.MenuFont, $"Death Ray", new Vector2(320, 270), Color.White);
+            sb.DrawString(ScreenManager.MenuFont, $"Single Shot", new Vector2(320, 370), Color.White);
+
             sb.End();
             base.Draw(gameTime);
         }
