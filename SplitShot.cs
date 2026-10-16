@@ -15,6 +15,7 @@ namespace SpacerGamer
         public SplitShot() : base(.5f)
         {
             cost = 500;
+            unlocked = false;
         }
         
         protected override void Fire(Vector2 location, List<Laser> list)
