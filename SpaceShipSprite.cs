@@ -5,6 +5,9 @@ namespace SpacerGamer
 {
     public class SpaceShipSprite : ShipBase
     {
+        private bool overheated = false;
+        private const float COOLDOWNTIMER = 10f;
+        private float cooldownTimer = COOLDOWNTIMER;
         private GamePadState gamePadState;
         private GamePadState priorGamePadState;
         private KeyboardState keyboardState;
@@ -14,11 +17,22 @@ namespace SpacerGamer
         public SpaceShipSprite() : base(new Vector2(400, 400), maxHealth: 3, textureName: "SpaceShip", scale: 3f, hitboxScale: 0.6f)
         {
             boundsOffset = new Vector2(3f, 0f);
-            weapon = new SplitShot();
+            weapon = new SingleShot();
         }
 
         public override void Update(GameTime gameTime)
         {
+            if(overheated)
+            {
+                cooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(cooldownTimer <= 0) 
+                {
+                    overheated = false;
+                    cooldownTimer = COOLDOWNTIMER;
+                }
+
+            }
+            
             if(heatLevel > 0) heatLevel--;
             weapon.Update(gameTime);  
             priorGamePadState = gamePadState;
@@ -43,15 +57,16 @@ namespace SpacerGamer
                 lastDirectionLeft = false;
             }
 
-            if ((keyboardState.IsKeyDown(Keys.Space) && priorKeyboardState.IsKeyUp(Keys.Space)) ||
-                (gamePadState.IsButtonDown(Buttons.A) && priorGamePadState.IsButtonUp(Buttons.A)))
+            if (((keyboardState.IsKeyDown(Keys.Space) && priorKeyboardState.IsKeyUp(Keys.Space)) ||
+                (gamePadState.IsButtonDown(Buttons.A) && priorGamePadState.IsButtonUp(Buttons.A))) && weapon is not DeathRay)
             {
                 Fire();
             }
-            if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay&& heatLevel > 100))
+            if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay) && (heatLevel < 200) && (!overheated))
             {
                 Fire();
-                heatLevel += 100;//notworking
+                heatLevel += 5;
+                if(heatLevel > 200) overheated = true;
             }
 
             if ((keyboardState.IsKeyDown(Keys.E) && priorKeyboardState.IsKeyUp(Keys.E)) ||

@@ -15,7 +15,8 @@ namespace SpacerGamer
     {
         public SingleShot() : base(.25f)
         {
-            
+            cost = 0;
+            unlocked = true;
         }
 
         protected override void Fire(Vector2 location, List<Laser> list)

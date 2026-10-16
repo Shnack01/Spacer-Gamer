@@ -13,8 +13,10 @@ namespace SpacerGamer
 {
     public class SplitShot : WeaponBase{
         public SplitShot() : base(.5f)
-        {}
-
+        {
+            cost = 500;
+        }
+        
         protected override void Fire(Vector2 location, List<Laser> list)
         {
             Laser toLeft = new Laser(location);

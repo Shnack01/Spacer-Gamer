@@ -21,6 +21,7 @@ namespace SpacerGamer{
 
 public class SpaceGame : Game, IParticleEmitter
 {
+    private int Money = 0;
     EngineParticle _engineParticle;
     public Vector2 Position {get; set;}
     public Vector2 Velocity {get; set;}
@@ -153,6 +154,10 @@ public class SpaceGame : Game, IParticleEmitter
         MediaPlayer.Volume = 0.3f;
         
     }
+    public void CalcMoney()
+    {
+        Money += (score/10) + spawn.wave * 5;
+    }
 
     protected override void Update(GameTime gameTime)
     {
@@ -256,6 +261,7 @@ public class SpaceGame : Game, IParticleEmitter
                     if(ship.Health == 0)
                     {
                         ship.Explode();
+                        CalcMoney();
                         currentState = GameState.GameOver;
                     }
                 }
@@ -353,8 +359,10 @@ public class SpaceGame : Game, IParticleEmitter
                 sortMode: SpriteSortMode.Deferred,
                 blendState: BlendState.AlphaBlend,
                 samplerState: SamplerState.PointClamp);
+            string money = $"${Money}";
             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, upgradeButtonBounds, Color.BlueViolet);
+            _spriteBatch.DrawString(_spriteFont, money, new Vector2((screenWidth - _spriteFont.MeasureString(money).X - 20), 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Play/START", new Vector2(312, 268), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
@@ -372,6 +380,9 @@ public class SpaceGame : Game, IParticleEmitter
             }
         else if (currentState == GameState.GameOver)
         {
+            string money = $"${Money}";
+
+            _spriteBatch.DrawString(_spriteFont, money, new Vector2((screenWidth - _spriteFont.MeasureString(money).X - 20), 20), Color.White);
             _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, mainMenuButtonBounds, Color.BlueViolet);
             string lableMain = "Main Menu";
