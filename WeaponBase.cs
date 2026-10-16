@@ -13,6 +13,7 @@ namespace SpacerGamer
 {
     public abstract class WeaponBase
     {
+        public bool unlocked;
         public int cost;
         protected float cooldown;
         protected float timer;
