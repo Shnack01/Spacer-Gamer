@@ -318,6 +318,7 @@ public class SpaceGame : Game, IParticleEmitter
                 {
                     boom.Play();
                     ship.Explode();
+                    CalcMoney();
                     currentState = GameState.GameOver;
                 }
                 hit.Play();

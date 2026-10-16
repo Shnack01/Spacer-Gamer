@@ -1,13 +1,13 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70681,0.1900446
-"C:/Users/User/source/repos/Spacer-Gamer/Content/BeepBox-Song.mp3","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/BeepBox-Song.xnb","SongProcessor","SongContent",2058240,130,1.3647614
-"C:/Users/User/source/repos/Spacer-Gamer/Content/Boom7.wav","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Boom7.xnb","SoundEffectProcessor","SoundEffectContent",52568,52629,0.1823433
-"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.0118309
-"C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.0060855
-"C:/Users/User/source/repos/Spacer-Gamer/Content/Hit1.wav","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Hit1.xnb","SoundEffectProcessor","SoundEffectContent",14994,15055,0.1777213
-"C:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0069123
-"C:/Users/User/source/repos/Spacer-Gamer/Content/Laserfired.wav","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laserfired.xnb","SoundEffectProcessor","SoundEffectContent",11984,12045,0.1989061
-"C:/Users/User/source/repos/Spacer-Gamer/Content/particle.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/particle.xnb","TextureProcessor","Texture2DContent",577,1109,0.0026389
-"C:/Users/User/source/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/ShootingEnemyAnimated.xnb","TextureProcessor","Texture2DContent",1503,32853,0.0036555
-"C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceBackground-export.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceBackground-export.xnb","TextureProcessor","Texture2DContent",31785,12800085,0.3365066
-"C:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png","C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.0046324
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/arial.spritefont","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/arial.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70681,0.1650566
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/BeepBox-Song.mp3","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/BeepBox-Song.xnb","SongProcessor","SongContent",2058240,130,0.8111254
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/Boom7.wav","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Boom7.xnb","SoundEffectProcessor","SoundEffectContent",52568,52629,0.1237371
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/EnemyShip.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShip.xnb","TextureProcessor","Texture2DContent",474,4181,0.007589
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/EnemyShipAnimated.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/EnemyShipAnimated.xnb","TextureProcessor","Texture2DContent",1512,32853,0.00565
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/Hit1.wav","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Hit1.xnb","SoundEffectProcessor","SoundEffectContent",14994,15055,0.1184756
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/Laser.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laser.xnb","TextureProcessor","Texture2DContent",180,4181,0.0053607
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/Laserfired.wav","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Laserfired.xnb","SoundEffectProcessor","SoundEffectContent",11984,12045,0.1210498
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/particle.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/particle.xnb","TextureProcessor","Texture2DContent",577,1109,0.0016884
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/ShootingEnemyAnimated.xnb","TextureProcessor","Texture2DContent",1503,32853,0.0019263
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/SpaceBackground-export.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceBackground-export.xnb","TextureProcessor","Texture2DContent",31785,12800085,0.2584805
+"C:/Users/Isaac/repos/Spacer-Gamer/Content/SpaceShip.png","C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/SpaceShip.xnb","TextureProcessor","Texture2DContent",426,4181,0.0018466

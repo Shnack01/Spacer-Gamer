@@ -42,7 +42,7 @@ namespace SpacerGamer
             }
             if((singleButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start)))
             {
-                _ship.weapon = unlockedWeapons[0];
+                _ship.weapon = new SingleShot();
                 
             }
             if((rayButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Start) && priorGamePadState.IsButtonUp(Buttons.Start)))
