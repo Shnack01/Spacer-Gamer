@@ -15,7 +15,9 @@ namespace SpacerGamer
         
         public DeathRay() : base(0f)
         {
-            
+            name = "Death Ray";
+            cost = 1000;
+            unlocked = false;
         }
 
         protected override void Fire(Vector2 location, List<Laser> list)

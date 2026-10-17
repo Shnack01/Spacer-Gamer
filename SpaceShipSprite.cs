@@ -5,8 +5,9 @@ namespace SpacerGamer
 {
     public class SpaceShipSprite : ShipBase
     {
+        private const float MAX_HEAT = 100f;
         private bool overheated = false;
-        private const float COOLDOWNTIMER = 10f;
+        private const float COOLDOWNTIMER = 5f;
         private float cooldownTimer = COOLDOWNTIMER;
         private GamePadState gamePadState;
         private GamePadState priorGamePadState;
@@ -29,11 +30,18 @@ namespace SpacerGamer
                 {
                     overheated = false;
                     cooldownTimer = COOLDOWNTIMER;
+                    heatLevel = 0;
+                }
+                else
+                {
+                    heatLevel = MAX_HEAT * (cooldownTimer / COOLDOWNTIMER);
                 }
 
             }
-            
-            if(heatLevel > 0) heatLevel--;
+            else if (heatLevel > 0)
+            {
+                heatLevel--;                                       
+            }
             weapon.Update(gameTime);  
             priorGamePadState = gamePadState;
             gamePadState = GamePad.GetState(0);
@@ -62,11 +70,15 @@ namespace SpacerGamer
             {
                 Fire();
             }
-            if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay) && (heatLevel < 200) && (!overheated))
+            if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay) && (heatLevel < 100) && (!overheated))
             {
                 Fire();
-                heatLevel += 5;
-                if(heatLevel > 200) overheated = true;
+                heatLevel += 3;
+                if (heatLevel >= MAX_HEAT)
+                {
+                    heatLevel = MAX_HEAT;
+                    overheated = true;
+                }
             }
 
             if ((keyboardState.IsKeyDown(Keys.E) && priorKeyboardState.IsKeyUp(Keys.E)) ||

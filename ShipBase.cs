@@ -9,7 +9,7 @@ namespace SpacerGamer
 {
     public abstract class ShipBase : IShip
     {
-        public int heatLevel {get; set;} = 0;
+        public float heatLevel {get; set;} = 0;
         public WeaponBase weapon{get; set;}
         protected Vector2 position;
         protected Texture2D texture;

@@ -18,10 +18,14 @@ enum GameState
 }
 
 namespace SpacerGamer{
-
+public class PlayerData
+{
+    public int Money { get; set; }
+}
 public class SpaceGame : Game, IParticleEmitter
 {
-    private int Money = 0;
+    private Rectangle backgroundBounds = new Rectangle(180, 3, 460, 165);
+    private PlayerData playerData = new PlayerData();
     EngineParticle _engineParticle;
     public Vector2 Position {get; set;}
     public Vector2 Velocity {get; set;}
@@ -59,6 +63,12 @@ public class SpaceGame : Game, IParticleEmitter
     private Texture2D _background;
     private Song backGroundMisic;
     private ScreenManager screenManager;
+    private HashSet<WeaponBase> weapons = new HashSet<WeaponBase>
+    {
+        new SplitShot(),
+        new SingleShot(),
+        new DeathRay()
+    };
     
      
     private int score = 0;
@@ -76,7 +86,7 @@ public class SpaceGame : Game, IParticleEmitter
     protected override void Initialize()
     {
         screenManager = new ScreenManager(this);
-        
+        playerData.Money = 0;
         this.Services.AddService(typeof(ScreenManager), screenManager);
         Components.Add(screenManager);
         ship = new SpaceShipSprite();
@@ -123,7 +133,7 @@ public class SpaceGame : Game, IParticleEmitter
         MediaPlayer.Play(backGroundMisic);
         _engineParticle = new EngineParticle(this, this);
         
-        _engineParticle.color = Color.HotPink;
+        _engineParticle.color = Color.OrangeRed;
         Components.Add(_engineParticle);
         currentState = GameState.Playing;
 
@@ -156,7 +166,7 @@ public class SpaceGame : Game, IParticleEmitter
     }
     public void CalcMoney()
     {
-        Money += (score/10) + spawn.wave * 5;
+        playerData.Money += (score/10) + spawn.wave * 5;
     }
 
     protected override void Update(GameTime gameTime)
@@ -174,7 +184,7 @@ public class SpaceGame : Game, IParticleEmitter
             if((upgradeButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed) || (gamePadState.IsButtonDown(Buttons.Back) && priorGamePadState.IsButtonUp(Buttons.Start))) 
             {
                 currentState = GameState.Edit; 
-                screenManager.AddScreen(new ShipUpgrade(this, ship));
+                screenManager.AddScreen(new ShipUpgrade(this, ship, playerData, weapons));
                 
             }
 
@@ -360,10 +370,11 @@ public class SpaceGame : Game, IParticleEmitter
                 sortMode: SpriteSortMode.Deferred,
                 blendState: BlendState.AlphaBlend,
                 samplerState: SamplerState.PointClamp);
-            string money = $"${Money}";
+            string money = $"${playerData.Money}";
+            _spriteBatch.Draw(buttonTexture, backgroundBounds, Color.DarkCyan);
             _spriteBatch.Draw(buttonTexture, playButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, upgradeButtonBounds, Color.BlueViolet);
-            _spriteBatch.DrawString(_spriteFont, money, new Vector2((screenWidth - _spriteFont.MeasureString(money).X - 20), 20), Color.White);
+            _spriteBatch.DrawString(_spriteFont, money, new Vector2(screenWidth - _spriteFont.MeasureString(money).X - 20, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Play/START", new Vector2(312, 268), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Spacer Gamer", new Vector2(290, 2), Color.SkyBlue);
             _spriteBatch.DrawString(_spriteFont, "Space/A button to Shoot", new Vector2(225, 40), Color.White);
@@ -381,9 +392,9 @@ public class SpaceGame : Game, IParticleEmitter
             }
         else if (currentState == GameState.GameOver)
         {
-            string money = $"${Money}";
+            string money = $"${playerData.Money}";
 
-            _spriteBatch.DrawString(_spriteFont, money, new Vector2((screenWidth - _spriteFont.MeasureString(money).X - 20), 20), Color.White);
+            _spriteBatch.DrawString(_spriteFont, money, new Vector2(screenWidth - _spriteFont.MeasureString(money).X - 20, 20), Color.White);
             _spriteBatch.Draw(buttonTexture, playAgainButtonBounds, Color.BlueViolet);
             _spriteBatch.Draw(buttonTexture, mainMenuButtonBounds, Color.BlueViolet);
             string lableMain = "Main Menu";
@@ -444,6 +455,10 @@ public class SpaceGame : Game, IParticleEmitter
             _spriteBatch.DrawString(_spriteFont, $"Ship Health: {ship.Health}", new Vector2(2,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Wave: {spawn.wave}", new Vector2(650,2), Color.Blue);
             _spriteBatch.DrawString(_spriteFont, $"Score: {score}", new Vector2(325,2), Color.Blue);
+            if(ship.weapon is DeathRay){
+                string s = $"Heat: {ship.heatLevel:0}%";
+                _spriteBatch.DrawString(_spriteFont, s, new Vector2(screenWidth - _spriteFont.MeasureString(s).X - 20, screenHeight - 30), Color.MediumVioletRed);
+            }
             bool visible = blinkTimer <= 0 || (int)(blinkTimer / BlinkInterval) % 2 == 0;
             if (visible) ship.Draw(gameTime, _spriteBatch);
         }

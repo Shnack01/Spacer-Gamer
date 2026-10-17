@@ -14,6 +14,7 @@ namespace SpacerGamer
     public class SplitShot : WeaponBase{
         public SplitShot() : base(.5f)
         {
+            name = "Split Shot";
             cost = 500;
             unlocked = false;
         }

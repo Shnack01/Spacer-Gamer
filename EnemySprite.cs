@@ -33,6 +33,7 @@ namespace SpacerGamer
             if (wave < 2) speed = 1;
             else if (wave < 5) speed = 3;
             else if (wave < 10) speed = 5;
+            else speed = 7;
 
             position += new Vector2(0, 3 + speed);
             bounds.Center = position;

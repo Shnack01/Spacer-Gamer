@@ -15,6 +15,7 @@ namespace SpacerGamer
     {
         public SingleShot() : base(.25f)
         {
+            name = "Single Shot";
             cost = 0;
             unlocked = true;
         }
