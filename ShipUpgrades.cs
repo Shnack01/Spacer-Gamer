@@ -77,10 +77,19 @@ namespace SpacerGamer
             {
                 ExitScreen();
             }
+            if (mouseState.LeftButton == ButtonState.Pressed) SyncSave();
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             
         }
-
+        private void SyncSave()
+        {
+            playerData.UnlockedWeapons.Clear();
+            playerData.UnlockedWeapons.Add("SingleShot");
+            if (splitShot.unlocked) playerData.UnlockedWeapons.Add("SplitShot");
+            if (deathRay.unlocked) playerData.UnlockedWeapons.Add("DeathRay");
+            playerData.EquippedWeapon = _ship.weapon.GetType().Name;
+            SaveManager.Save(playerData);
+        }
         public override void Draw(GameTime gameTime)
         {
             buttonTexture = new Texture2D(ScreenManager.GraphicsDevice, 1, 1);

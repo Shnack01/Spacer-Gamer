@@ -99,7 +99,9 @@ public class SpaceGame : Game, IParticleEmitter
         ship.LaserFired += LaserFired;
         _engineParticle = new EngineParticle(this, this);
         Components.Add(_engineParticle);
-        
+        foreach (var w in weapons)
+            w.unlocked = w is SingleShot || playerData.UnlockedWeapons.Contains(w.GetType().Name);
+        ship.weapon = weapons.FirstOrDefault(w => w.GetType().Name == playerData.EquippedWeapon) ?? ship.weapon;
         base.Initialize();
     }
     private void LaserFired(Vector2 shipPosition)
