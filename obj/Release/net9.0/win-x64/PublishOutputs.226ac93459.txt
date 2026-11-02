@@ -1,0 +1,17 @@
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\SpacerGamer.pdb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/arial.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/BeepBox-Song.ogg
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/BeepBox-Song.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/Boom7.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/EnemyShip.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/EnemyShipAnimated.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/Hit1.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/Laser.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/Laserfired.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/particle.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/ShootingEnemyAnimated.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/SpaceBackground-export.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\Content/SpaceShip.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\openal.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\SDL2.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Release\net9.0\win-x64\publish\SpacerGamer.exe

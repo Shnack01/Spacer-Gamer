@@ -174,7 +174,7 @@ public class SpaceGame : Game, IParticleEmitter
         playerData.Money += (score / 10) + spawn.wave * 5;
         SaveManager.Save(playerData);
     }
-
+    
     protected override void Update(GameTime gameTime)
     {
         if(currentState == GameState.MainMenu)

@@ -39,6 +39,7 @@ namespace SpacerGamer
                 else if(b is DeathRay) deathRay = (DeathRay)b;
             }
         }
+        
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             priorKeyboardState = keyboardState;
