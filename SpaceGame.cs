@@ -21,6 +21,11 @@ namespace SpacerGamer{
 public class PlayerData
 {
     public int Money { get; set; }
+    public int HighScore { get; set; }
+    public int BestWave { get; set; }
+    public string EquippedWeapon { get; set; } = "SingleShot";
+    public List<string> UnlockedWeapons { get; set; } = new() { "SingleShot" };
+    
 }
 public class SpaceGame : Game, IParticleEmitter
 {
@@ -86,7 +91,7 @@ public class SpaceGame : Game, IParticleEmitter
     protected override void Initialize()
     {
         screenManager = new ScreenManager(this);
-        playerData.Money = 0;
+        playerData = SaveManager.Load();
         this.Services.AddService(typeof(ScreenManager), screenManager);
         Components.Add(screenManager);
         ship = new SpaceShipSprite();
@@ -166,7 +171,8 @@ public class SpaceGame : Game, IParticleEmitter
     }
     public void CalcMoney()
     {
-        playerData.Money += (score/10) + spawn.wave * 5;
+        playerData.Money += (score / 10) + spawn.wave * 5;
+        SaveManager.Save(playerData);
     }
 
     protected override void Update(GameTime gameTime)
