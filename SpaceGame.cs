@@ -14,13 +14,19 @@ enum GameState
     MainMenu, 
     Playing, 
     GameOver,
-    Edit
+    Edit,
+    Map
 }
 
 namespace SpacerGamer{
 public class PlayerData
 {
     public int Money { get; set; }
+    public int HighScore { get; set; }
+    public int BestWave { get; set; }
+    public string EquippedWeapon { get; set; } = "SingleShot";
+    public List<string> UnlockedWeapons { get; set; } = new() { "SingleShot" };
+    
 }
 public class SpaceGame : Game, IParticleEmitter
 {
@@ -55,6 +61,7 @@ public class SpaceGame : Game, IParticleEmitter
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
     private Rectangle upgradeButtonBounds = new Rectangle(300, 350, 200, 75);
+    private Rectangle mapButtonBounds = new Rectangle(550, 350, 200, 75);
     private Rectangle playAgainButtonBounds;
     private Rectangle mainMenuButtonBounds;
     private MouseState mouseState = new MouseState();
@@ -86,7 +93,7 @@ public class SpaceGame : Game, IParticleEmitter
     protected override void Initialize()
     {
         screenManager = new ScreenManager(this);
-        playerData.Money = 0;
+        playerData = SaveManager.Load();
         this.Services.AddService(typeof(ScreenManager), screenManager);
         Components.Add(screenManager);
         ship = new SpaceShipSprite();
@@ -94,7 +101,9 @@ public class SpaceGame : Game, IParticleEmitter
         ship.LaserFired += LaserFired;
         _engineParticle = new EngineParticle(this, this);
         Components.Add(_engineParticle);
-        
+        foreach (var w in weapons)
+            w.unlocked = w is SingleShot || playerData.UnlockedWeapons.Contains(w.GetType().Name);
+        ship.weapon = weapons.FirstOrDefault(w => w.GetType().Name == playerData.EquippedWeapon) ?? ship.weapon;
         base.Initialize();
     }
     private void LaserFired(Vector2 shipPosition)
@@ -166,11 +175,13 @@ public class SpaceGame : Game, IParticleEmitter
     }
     public void CalcMoney()
     {
-        playerData.Money += (score/10) + spawn.wave * 5;
+        playerData.Money += (score / 10) + spawn.wave * 5;
+        SaveManager.Save(playerData);
     }
-
+    
     protected override void Update(GameTime gameTime)
     {
+        
         if(currentState == GameState.MainMenu)
         {
             _engineParticle.Enabled = false; 
@@ -187,11 +198,16 @@ public class SpaceGame : Game, IParticleEmitter
                 screenManager.AddScreen(new ShipUpgrade(this, ship, playerData, weapons));
                 
             }
+            if (mapButtonBounds.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                currentState = GameState.Map;
+                screenManager.AddScreen(new TileMap(this));
+            }
 
             base.Update(gameTime);
             return;
         }
-        else if (currentState == GameState.Edit)
+        else if (currentState == GameState.Edit || currentState == GameState.Map)
         {
             _engineParticle.Enabled = false;
             _engineParticle.Visible = false;
@@ -284,8 +300,12 @@ public class SpaceGame : Game, IParticleEmitter
             foreach(IEnemy enemy in enemys)
             {
                 if (enemy.Health == 0 || enemy.spawnTimer > 0) continue;
-                if (laser.Bounds.CollidesWith(enemy.Bounds)) 
+                bool laserHit = enemy is MegaZornMothership mzTarget
+                    ? laser.Bounds.CollidesWith(mzTarget.HitBox)
+                    : laser.Bounds.CollidesWith(enemy.Bounds);
+                if (laserHit)
                 {
+                
                     enemy.color = Color.Red;
                     enemy.Health--;
                     if(enemy.Health == 0) 
@@ -317,7 +337,10 @@ public class SpaceGame : Game, IParticleEmitter
             {
                 enemy.Destroyed = true;
             }
-            if (enemy.Bounds.CollidesWith(ship.Bounds))
+            bool rammed = enemy is MegaZornMothership mzRam
+                ? mzRam.HitBox.CollidesWith(ship.Bounds)
+                : enemy.Bounds.CollidesWith(ship.Bounds);
+            if (rammed)
             {
                 
                 ship.Health--;
@@ -382,9 +405,11 @@ public class SpaceGame : Game, IParticleEmitter
             _spriteBatch.DrawString(_spriteFont, "E/RB to Dash Right", new Vector2(270, 120), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Edit Ship", new Vector2(335, 370), Color.White);
             _spriteBatch.Draw(staticShip, new Vector2(250, 200), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
+            _spriteBatch.Draw(buttonTexture, mapButtonBounds, Color.BlueViolet);
+            _spriteBatch.DrawString(_spriteFont, "Map", new Vector2(625, 370), Color.White);    
             _spriteBatch.Draw(staticEnemy, new Vector2(630, 50), null, Color.White, MathHelper.ToRadians(60), new Vector2(), 7f, SpriteEffects.None, 0f);
         }
-        else if (currentState == GameState.Edit)
+        else if (currentState == GameState.Edit || currentState == GameState.Map)
             {
                 _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
                 _spriteBatch.Draw(_background, new Vector2(0, _background.Height), Color.White);

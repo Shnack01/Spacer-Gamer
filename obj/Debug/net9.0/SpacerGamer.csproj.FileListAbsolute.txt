@@ -148,3 +148,10 @@ C:\Users\Isaac\repos\Spacer-Gamer\obj\Debug\net9.0\refint\SpacerGamer.dll
 C:\Users\Isaac\repos\Spacer-Gamer\obj\Debug\net9.0\SpacerGamer.pdb
 C:\Users\Isaac\repos\Spacer-Gamer\obj\Debug\net9.0\SpacerGamer.genruntimeconfig.cache
 C:\Users\Isaac\repos\Spacer-Gamer\obj\Debug\net9.0\ref\SpacerGamer.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\FirstTileSet.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\MothershipSprite.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\TileSet v1.0.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\TileSet v1.0_0.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Autofac.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.dll
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.Content.Pipeline.dll

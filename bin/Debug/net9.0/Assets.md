@@ -8,3 +8,5 @@ Hit1.wav - created by Isaac Meisinger for SpacerGamer
 LaserFired.wav - created by Isaac Meisinger for SpacerGamer
 ShootingEnemyAnimated.png - created by Isaac Meisinger for SpacerGamer
 SpaceBackground-export.png - created by Isaac Meisinger for SpacerGamer
+MothershipSprite.png - created by Isaac Meisinger for SpacerGamer
+TileSet v1.0.png - "Free Sci-Fi TileSet Space station" by Aske4 (itch.io)

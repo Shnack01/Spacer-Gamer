@@ -33,7 +33,7 @@ namespace SpacerGamer
         {
             
             enemies.Clear();
-            if(wave < 4)
+            if(wave < 4 && wave != 10)
             {
                 for(int i = 0;  i < enemyCount; i++)
                 {
@@ -43,6 +43,11 @@ namespace SpacerGamer
                     EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
                     enemies.Add(e);
                 }
+            }
+            else if (wave == 10)
+            {
+                MegaZornMothership m = new MegaZornMothership(0, new Vector2(screenWidth / 2, -50));
+                enemies.Add(m);
             }
             else
             {
@@ -58,7 +63,7 @@ namespace SpacerGamer
                 for(int i = 0;  i < enemyCount - 2; i++)
                 {
                     float spawnDelay = (float)_rad.NextDouble() * wave;
-                    float x = _rad.Next(0, screenWidth - 48);
+                    float x = _rad.Next(screenWidth - 48);
                     int y = -48;
                     
                     EnemySprite e = new EnemySprite(spawnDelay, new Vector2(x, y));
