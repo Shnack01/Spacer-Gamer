@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/User/source/repos/Spacer-Gamer/Content/Bleh.wav</SourceFile>
+  <SourceTime>2026-11-05T16:52:00.5935444-06:00</SourceTime>
+  <DestFile>C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Bleh.xnb</DestFile>
+  <DestTime>2026-11-09T11:38:45.8026412-06:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2026-08-14T16:50:10-05:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2026-08-14T16:50:10-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Parameters>
+    <Key>Version</Key>
+    <Value>3.8.5.1</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/User/source/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Bleh.ogg</string>
+  </BuildOutput>
+</PipelineBuildEvent>

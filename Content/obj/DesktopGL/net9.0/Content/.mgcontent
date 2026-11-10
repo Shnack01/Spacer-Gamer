@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont</File>
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/BeepBox-Song.mp3</File>
+    <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Bleh.wav</File>
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/Boom7.wav</File>
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png</File>
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</File>
@@ -21,6 +22,7 @@
     <File>C:/Users/User/source/repos/Spacer-Gamer/Content/TileSet v1.0.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

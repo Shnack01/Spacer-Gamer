@@ -29,6 +29,13 @@
 /processorParam:Version=3.8.5.1
 /build:BeepBox-Song.mp3
 
+#begin Bleh.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/processorParam:Version=3.8.5.1
+/build:Bleh.wav
+
 #begin Boom7.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

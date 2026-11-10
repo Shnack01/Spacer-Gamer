@@ -30,6 +30,7 @@ public class PlayerData
 }
 public class SpaceGame : Game, IParticleEmitter
 {
+    private bool bossMusicPlaying = false;
     private Rectangle backgroundBounds = new Rectangle(180, 3, 460, 165);
     private PlayerData playerData = new PlayerData();
     EngineParticle _engineParticle;
@@ -69,6 +70,7 @@ public class SpaceGame : Game, IParticleEmitter
     private Texture2D staticEnemy;
     private Texture2D _background;
     private Song backGroundMisic;
+    private Song bossMusic;
     private ScreenManager screenManager;
     private HashSet<WeaponBase> weapons = new HashSet<WeaponBase>
     {
@@ -145,7 +147,7 @@ public class SpaceGame : Game, IParticleEmitter
         _engineParticle.color = Color.OrangeRed;
         Components.Add(_engineParticle);
         currentState = GameState.Playing;
-
+        bossMusicPlaying = false;
         
     }
 
@@ -169,6 +171,7 @@ public class SpaceGame : Game, IParticleEmitter
         boom = Content.Load<SoundEffect>("Boom7");
         laserFired = Content.Load<SoundEffect>("LaserFired");
         backGroundMisic = Content.Load<Song>("BeepBox-Song");
+        bossMusic = Content.Load<Song>("Bleh");
         MediaPlayer.IsRepeating = true;
         MediaPlayer.Volume = 0.3f;
         
@@ -246,6 +249,7 @@ public class SpaceGame : Game, IParticleEmitter
         bgScroll += BgSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         if (bgScroll >= _background.Height) bgScroll = 0f;
         if (blinkTimer > 0) blinkTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        
         if (enemys.Count == 0)
         {
             if (!waveCompleted) 
@@ -263,6 +267,19 @@ public class SpaceGame : Game, IParticleEmitter
                     waveCompleted = false;
                 }
             }
+        }
+        if (MediaPlayer.State == MediaState.Stopped)
+                MediaPlayer.Play(bossMusicPlaying ? bossMusic : backGroundMisic);
+        if(spawn.wave == 10 && !bossMusicPlaying)
+        {
+            MediaPlayer.Play(bossMusic);
+            bossMusicPlaying = true;
+            
+        }
+        else if (spawn.wave == 11 && bossMusicPlaying)
+        {
+            MediaPlayer.Play(backGroundMisic);
+            bossMusicPlaying = false;
         }
         foreach(IEnemy enemy in enemys)
         {
