@@ -83,6 +83,8 @@ namespace SpacerGamer
             Vector2 rightP = new Vector2(position.X + 79,position.Y + 59);
             var leftLaser = new EnemyLaser(leftP);
             var rightLaser = new EnemyLaser(rightP);
+            leftLaser.velocity = 0f;
+            leftLaser.sizeMult = 3f;
             lasers.Add(leftLaser);
             lasers.Add(rightLaser);
             return lasers;
