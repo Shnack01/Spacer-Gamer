@@ -10,8 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\6.1.1\tools\MonoGame.Extended.Content.Pipeline.dll
-
+/reference:C:/Users/Isaac/.nuget/packages/monogame.extended.content.pipeline/6.1.1/tools/MonoGame.Extended.Content.Pipeline.dll
 #---------------------------------- Content ---------------------------------#
 
 #begin arial.spritefont

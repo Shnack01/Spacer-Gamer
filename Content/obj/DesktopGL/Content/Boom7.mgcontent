@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Isaac/repos/Spacer-Gamer/Content/Boom7.wav</SourceFile>
+  <SourceTime>2026-11-01T23:01:29.5494124-06:00</SourceTime>
+  <DestFile>C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Boom7.xnb</DestFile>
+  <DestTime>2026-11-09T23:33:05.9891474-06:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2026-08-14T16:50:10-05:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2026-08-14T16:50:10-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Parameters>
+    <Key>Version</Key>
+    <Value>3.8.5.1</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

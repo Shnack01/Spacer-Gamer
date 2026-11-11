@@ -126,6 +126,7 @@ public class SpaceGame : Game, IParticleEmitter
         laserFired.Play();
         enemyLasers.Add(laser);
     }
+
     private void Restart()
     {
         enemyLasers = new List<EnemyLaser>();
@@ -270,13 +271,14 @@ public class SpaceGame : Game, IParticleEmitter
         }
         if (MediaPlayer.State == MediaState.Stopped)
                 MediaPlayer.Play(bossMusicPlaying ? bossMusic : backGroundMisic);
-        if(spawn.wave == 10 && !bossMusicPlaying)
+        bool bossAlive = enemys.Any(e => e is MegaZornMothership);
+        if(bossAlive && !bossMusicPlaying)
         {
             MediaPlayer.Play(bossMusic);
             bossMusicPlaying = true;
             
         }
-        else if (spawn.wave == 11 && bossMusicPlaying)
+        else if (!bossAlive && bossMusicPlaying)
         {
             MediaPlayer.Play(backGroundMisic);
             bossMusicPlaying = false;
@@ -348,6 +350,19 @@ public class SpaceGame : Game, IParticleEmitter
                     {
                         EnemyLaserFired(sEnemy.Position);
                         sEnemy.shoot = false;
+                    }
+                }
+            if(enemy is MegaZornMothership mShip)
+                {
+                    if(mShip.shoot)
+                    {
+                        List<EnemyLaser> l = mShip.doubleShoot();
+                        mShip.shoot = false;
+                        foreach(EnemyLaser laser in l)
+                        {
+                            laser.LoadContent(Content);
+                            enemyLasers.Add(laser);
+                        }
                     }
                 }
             if (enemy.Position.Y > screenHeight)

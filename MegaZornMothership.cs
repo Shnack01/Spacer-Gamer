@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,7 +76,17 @@ namespace SpacerGamer
 
             
         }
-
+        public List<EnemyLaser> doubleShoot()
+        {
+            List<EnemyLaser> lasers = new List<EnemyLaser>();
+            Vector2 leftP = new Vector2(position.X - 76,position.Y + 59);
+            Vector2 rightP = new Vector2(position.X + 79,position.Y + 59);
+            var leftLaser = new EnemyLaser(leftP);
+            var rightLaser = new EnemyLaser(rightP);
+            lasers.Add(leftLaser);
+            lasers.Add(rightLaser);
+            return lasers;
+        }
         public void Shoot()
         {
             shoot = true;
