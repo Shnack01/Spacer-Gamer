@@ -293,7 +293,7 @@ public class SpaceGame : Game, IParticleEmitter
         ship.Update(gameTime);
         
         Velocity = new Vector2(0, 1); 
-        Position = new Vector2(ship.Position.X + 2, ship.Bounds.Bottom - 20);
+        Position = ship.TailPosition + new Vector2(0, -4);
         foreach(var laser in enemyLasers)
         {
             laser.Update(gameTime);
@@ -356,7 +356,7 @@ public class SpaceGame : Game, IParticleEmitter
                 {
                     if(mShip.shoot)
                     {
-                        List<EnemyLaser> l = mShip.doubleShoot();
+                        List<EnemyLaser> l = mShip.Attack();
                         mShip.shoot = false;
                         foreach(EnemyLaser laser in l)
                         {
@@ -518,6 +518,10 @@ public class SpaceGame : Game, IParticleEmitter
             }
             bool visible = blinkTimer <= 0 || (int)(blinkTimer / BlinkInterval) % 2 == 0;
             if (visible) ship.Draw(gameTime, _spriteBatch);
+            /*
+            _spriteBatch.Draw(buttonTexture,
+            new Rectangle((int)ship.Bounds.X, (int)ship.Bounds.Y, (int)ship.Bounds.Width, (int)ship.Bounds.Height),
+            Color.Red * 0.4f);*/
         }
         _spriteBatch.End(); 
 

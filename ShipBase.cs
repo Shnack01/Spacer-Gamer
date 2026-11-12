@@ -19,6 +19,9 @@ namespace SpacerGamer
         protected readonly float hitboxScale;
         protected Vector2 boundsOffset = Vector2.Zero;
         protected Vector2 muzzleOffset = new Vector2(3, -30f);
+        public Vector2 TailPosition => new Vector2(
+            position.X + (opaqueRect.X + opaqueRect.Width / 2f - texture.Width / 2f) * scale,
+            position.Y + (opaqueRect.Bottom - texture.Height / 2f) * scale);
 
         public event Action<Vector2> LaserFired;
 
@@ -41,9 +44,12 @@ namespace SpacerGamer
             this.hitboxScale = hitboxScale;
         }
 
+        protected Rectangle opaqueRect; 
+
         public virtual void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>(textureName);
+            opaqueRect = GetOpaqueBounds(texture);
         }
 
         public abstract void Update(GameTime gameTime);
@@ -61,7 +67,28 @@ namespace SpacerGamer
             Health = Math.Max(0, Health - amount);
             if (Health == 0) Explode();
         }
+        private static Rectangle GetOpaqueBounds(Texture2D tex)
+        {
+            var data = new Color[tex.Width * tex.Height];
+            tex.GetData(data);
 
+            int minX = tex.Width, minY = tex.Height, maxX = -1, maxY = -1;
+            for (int y = 0; y < tex.Height; y++)
+            {
+                for (int x = 0; x < tex.Width; x++)
+                {
+                    if (data[y * tex.Width + x].A > 16)
+                    {
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                }
+            }
+            if (maxX < 0) return tex.Bounds; // fully transparent, fall back
+            return new Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1);
+        }
         public virtual void Explode()
         {
             Destroyed = true;
@@ -78,11 +105,15 @@ namespace SpacerGamer
 
         protected virtual void UpdateBounds()
         {
-            float w = texture.Width * scale * hitboxScale;
-            float h = texture.Height * scale * hitboxScale;
-            bounds.X = position.X - w / 2f + boundsOffset.X;
-            bounds.Y = position.Y - h / 2f + boundsOffset.Y;
-            bounds.Width = w;
+            float left = position.X + (opaqueRect.X - texture.Width / 2f) * scale;
+            float top  = position.Y + (opaqueRect.Y - texture.Height / 2f) * scale;
+            float w = opaqueRect.Width * scale;
+            float h = opaqueRect.Height * scale;
+
+            float sw = w * hitboxScale;            
+            bounds.X = left + (w - sw) / 2f + boundsOffset.X;
+            bounds.Y = top + boundsOffset.Y; 
+            bounds.Width = sw;
             bounds.Height = h;
         }
     }

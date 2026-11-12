@@ -12,6 +12,9 @@ namespace SpacerGamer{
 
     public class EnemyLaser
     {
+        private const float DrawScale = 3f;
+        private const int SrcWidth = 2;
+        private const int SrcHeight = 16;
         private Color color = Color.White;
         private Rectangle laserBounds;
         private MouseState mouseState = new MouseState();
@@ -27,9 +30,9 @@ namespace SpacerGamer{
         public BoundingRectangle Bounds => bounds;
         public EnemyLaser(Vector2 shipLocation)
         {
-            this.position = shipLocation;
-            this.bounds = new BoundingRectangle(position, 2 * sizeMult, 16 * sizeMult);
-            laserBounds = new Rectangle((int)position.X, (int)position.Y, (int)(2 * sizeMult), (int)(16 * sizeMult));
+            position = shipLocation;
+            bounds = new BoundingRectangle(position, 0, 0);
+            UpdateBounds();
         }
 
         /// <summary>
@@ -41,20 +44,20 @@ namespace SpacerGamer{
             texture = content.Load<Texture2D>("Laser");
             
         }
+        private void UpdateBounds()
+        {
+            float w = SrcWidth * DrawScale * sizeMult;
+            float h = SrcHeight * DrawScale * sizeMult;
+            bounds.Width = w;
+            bounds.Height = h;
+            bounds.X = position.X - w / 2f;
+            bounds.Y = position.Y - h / 2f;
+        }
         public void Update(GameTime gameTime)
         {
-            color = Color.White;
-            this.position.Y += velocity;
-            this.bounds.X = position.X;
-            this.bounds.Y = position.Y;
-             laserBounds.X = (int)bounds.X;
-            laserBounds.Y = (int)bounds.Y;
-
-            mouseState = Mouse.GetState();
-            if (laserBounds.Contains(mouseState.Position))
-            {
-                color = Color.Blue;
-            }
+            
+            position.Y += velocity;
+            UpdateBounds();
         }
 
 
@@ -65,11 +68,10 @@ namespace SpacerGamer{
         /// <param name="spriteBatch">The spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if(used) return;            
-            var source = new Rectangle(16, 0, 2, 16);
-            Vector2 origin = new Vector2(1f, 8f);
-            spriteBatch.Draw(texture, position, source, color, 0, origin, 3f * sizeMult, SpriteEffects.None, 0);
+            if (used) return;
+            var source = new Rectangle(16, 0, SrcWidth, SrcHeight);
+            Vector2 origin = new Vector2(SrcWidth / 2f, SrcHeight / 2f);
+            spriteBatch.Draw(texture, position, source, color, 0, origin, DrawScale * sizeMult, SpriteEffects.None, 0);
         }
-        
     }
 }
