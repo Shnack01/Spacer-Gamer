@@ -30,6 +30,7 @@ public class PlayerData
 }
 public class SpaceGame : Game, IParticleEmitter
 {
+    
     private bool bossMusicPlaying = false;
     private Rectangle backgroundBounds = new Rectangle(180, 3, 460, 165);
     private PlayerData playerData = new PlayerData();
@@ -357,7 +358,7 @@ public class SpaceGame : Game, IParticleEmitter
                     if(mShip.shoot)
                     {
                         List<EnemyLaser> l = mShip.Attack();
-                        mShip.shoot = false;
+                       
                         foreach(EnemyLaser laser in l)
                         {
                             laser.LoadContent(Content);
