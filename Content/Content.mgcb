@@ -11,6 +11,7 @@
 #-------------------------------- References --------------------------------#
 
 /reference:pipeline/MonoGame.Extended.Content.Pipeline.dll
+
 #---------------------------------- Content ---------------------------------#
 
 #begin arial.spritefont
@@ -74,6 +75,19 @@
 /processorParam:LevelName=
 /processorParam:Version=6.1.1.0
 /build:FirstTileSet.tmx
+
+#begin Hammer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/processorParam:Version=3.8.5.1
+/build:Hammer.png
 
 #begin Hit1.wav
 /importer:WavImporter

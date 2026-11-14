@@ -59,6 +59,7 @@ public class SpaceGame : Game, IParticleEmitter
     private SpriteFont _spriteFont;
     public List<IEnemy> enemys = new List<IEnemy>();
     private List<Laser> lasers = new List<Laser>();
+    public List<Heart> hearts = new List<Heart>();
     private List<EnemyLaser> enemyLasers = new List<EnemyLaser>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
@@ -100,7 +101,7 @@ public class SpaceGame : Game, IParticleEmitter
         this.Services.AddService(typeof(ScreenManager), screenManager);
         Components.Add(screenManager);
         ship = new SpaceShipSprite();
-        spawn = new Spawning(screenWidth);
+        spawn = new Spawning(screenWidth, this);
         ship.LaserFired += LaserFired;
         _engineParticle = new EngineParticle(this, this);
         Components.Add(_engineParticle);
@@ -133,12 +134,13 @@ public class SpaceGame : Game, IParticleEmitter
         enemyLasers = new List<EnemyLaser>();
         enemys = new List<IEnemy>();
         lasers = new List<Laser>();
+        hearts = new List<Heart>();
         WeaponBase weaponBase = ship.weapon;
         ship = new SpaceShipSprite();
         ship.weapon = weaponBase;
         ship.LoadContent(Content);
         ship.LaserFired += LaserFired;
-        spawn = new Spawning(screenWidth);
+        spawn = new Spawning(screenWidth, this);
         waveCompleted = true;
         waveTransitionTimer = 2f;
         score = 0;
@@ -312,6 +314,7 @@ public class SpaceGame : Game, IParticleEmitter
                     }
                 }
         }
+    
         foreach (var laser in lasers)
         {
             laser.Update(gameTime);
@@ -329,8 +332,12 @@ public class SpaceGame : Game, IParticleEmitter
                     enemy.color = Color.Red;
                     enemy.Health--;
                     if(enemy.Health == 0) 
-                    {enemy.Destroyed = true;
-                    boom.Play();
+                    {
+                        enemy.Destroyed = true;
+                        boom.Play();
+                        if (enemy is Asteriod a){
+                             a.DropHealth();
+                        }
                     }
 
                     laser.used = true;
@@ -342,6 +349,16 @@ public class SpaceGame : Game, IParticleEmitter
             }
             
             
+        }
+        foreach(var heart in hearts)
+        {
+            if(heart.Bounds.CollidesWith(ship.Bounds))
+            {
+                if(ship.Health < 3) {
+                    ship.Health++;
+                }
+                heart.Collected = true;
+            }
         }
         foreach(IEnemy enemy in enemys)
         {
@@ -396,7 +413,8 @@ public class SpaceGame : Game, IParticleEmitter
         
         enemys.RemoveAll(enemy => enemy.Destroyed);
         lasers.RemoveAll(laser => laser.used);
-
+        enemyLasers.RemoveAll(enemyLasers => enemyLasers.used);
+        hearts.RemoveAll(hearts => hearts.Collected);
         base.Update(gameTime);
         
     }
@@ -496,6 +514,7 @@ public class SpaceGame : Game, IParticleEmitter
                 samplerState: SamplerState.PointClamp);
             foreach(IEnemy enemy in enemys)
             {
+                if (enemy is Asteriod a) a.Draw3D();
                 enemy.Draw(gameTime, _spriteBatch);
             }
             foreach (var laser in lasers)
@@ -505,6 +524,10 @@ public class SpaceGame : Game, IParticleEmitter
             foreach(var laser in enemyLasers)
             {
                 laser.Draw(gameTime, _spriteBatch); 
+            }
+            foreach(var heart in hearts)
+            {
+                heart.Draw(gameTime, _spriteBatch);
             }
             if(waveCompleted)
             {

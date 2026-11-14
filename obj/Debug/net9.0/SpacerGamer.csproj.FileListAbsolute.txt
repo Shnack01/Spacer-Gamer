@@ -166,3 +166,4 @@ C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\Content\TileSet v1.0_0.xnb
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\Autofac.dll
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.dll
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.Content.Pipeline.dll
+C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\Content\Hammer.xnb

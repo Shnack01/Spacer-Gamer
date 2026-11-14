@@ -4,24 +4,26 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/arial.spritefont</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/BeepBox-Song.mp3</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/Bleh.wav</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/Boom7.wav</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShip.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/FirstTileSet.tmx</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/Hit1.wav</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/Laser.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/Laserfired.wav</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/MothershipSprite.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/particle.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/SpaceBackground-export.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/SpaceShip.png</File>
-    <File>c:/Users/User/source/repos/Spacer-Gamer/Content/TileSet v1.0.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/arial.spritefont</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/BeepBox-Song.mp3</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Bleh.wav</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Boom7.wav</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/EnemyShip.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/EnemyShipAnimated.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/FirstTileSet.tmx</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Hammer.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Hit1.wav</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Laser.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/Laserfired.wav</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/MothershipSprite.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/particle.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/ShootingEnemyAnimated.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/SpaceBackground-export.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/SpaceShip.png</File>
+    <File>C:/Users/Isaac/repos/Spacer-Gamer/Content/TileSet v1.0.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

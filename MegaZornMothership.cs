@@ -123,12 +123,28 @@ namespace SpacerGamer
 
             return lasers;
         }
+        public List<EnemyLaser> spray()
+        {
+            List<EnemyLaser> lasers = new List<EnemyLaser>();
+            Vector2 leftP = new Vector2(position.X - 75,position.Y + 50);
+            Vector2 rightP = new Vector2(position.X + 75,position.Y + 50);
+            var leftLaser = new EnemyLaser(leftP);
+            var rightLaser = new EnemyLaser(rightP);
+            leftLaser.velocity = 10f;
+            leftLaser.sizeMult = 1.5f;
+            rightLaser.velocity = 10f;
+            rightLaser.sizeMult = 1.5f;
+            lasers.Add(leftLaser);
+            lasers.Add(rightLaser);
+
+            return lasers;
+        }
 
 
         public List<EnemyLaser> Attack()
         {
             List<EnemyLaser> lasers = new List<EnemyLaser>();
-            if(attackNum == 0) attackNum = Random.Shared.Next(1, 2);
+            if(attackNum == 0) attackNum = Random.Shared.Next(1, 3);
             switch (attackNum)
             {
                 case 1:
@@ -151,7 +167,26 @@ namespace SpacerGamer
                             }
                         }
                         break;
-                    
+                case 2:
+                        if(doubleShotTime > 0)
+                        {
+                            doubleShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
+                            
+                        }
+                        else
+                        {
+                            lasers = doubleShootAndMove();
+                            shotCount--;
+                            doubleShotTime = DOUBLE_TIMER;
+                            if (shotCount == 0)
+                            {
+                                shotCount = 30;
+                                movingBackHome = true;
+                                Attacking = false;
+                                shoot = false;    
+                            }
+                        }
+                        break;
                 default:
                         break;
             }
