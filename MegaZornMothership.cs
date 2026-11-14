@@ -21,6 +21,7 @@ namespace SpacerGamer
         private float moveTimer = 0.33f;
         private const float SHOOT_TIMER = 2f;
         private const float DOUBLE_TIMER = .1f;
+        private const float SPRAY_TIMER = .04f;
         private float shootTimer = SHOOT_TIMER;
         public override int points { get; set; } = 200;
         public bool shoot = false;
@@ -30,11 +31,20 @@ namespace SpacerGamer
         public BoundingRectangle HitBox => _hitBox;
         private GameTime gt;
         public float doubleShotTime = DOUBLE_TIMER;
+        public float sprayShotTime = SPRAY_TIMER;
         private int shotCount = 30;
         private float startPositionX;
         private float age = 0f;
         private float direction = 0f;
         private Vector2 home;
+        public bool doubleShooting = false;
+        private const int   SPRAY_SHOTS  = 50;   
+        
+        private const float SPRAY_SPEED  = 7f;    
+        private const float SPRAY_MAX_ANGLE = 60f;  
+
+        private int  sprayShotsFired = 0;
+        private bool sweepLeftToRight = true;
                 
         public MegaZornMothership(float spawnTimer, Vector2 position): base(position, spawnTimer, 24)
         {
@@ -67,11 +77,8 @@ namespace SpacerGamer
                 _hitBox.Y = position.Y - HIT_HEIGHT / 2f;
             }
             
-            if(Attacking) position.X = startPositionX + (float)Math.Sin(age * 6f) * 30f;
-            if(spraying)
-            {
-                direction = startPositionX + (float)Math.Sin(age * 6f) * 30f;
-            }
+            if(doubleShooting) position.X = startPositionX + (float)Math.Sin(age * 6f) * 30f;
+            if (spraying) direction = (float)Math.Sin(age * 6f) * 10f; 
             if(enemyState == EnemyState.Spawning)
             {
                 if (spawnTimer > 0)
@@ -131,18 +138,22 @@ namespace SpacerGamer
         }
         public List<EnemyLaser> spray()
         {
-            List<EnemyLaser> lasers = new List<EnemyLaser>();
-            Vector2 leftP = new Vector2(position.X - 75,position.Y + 50);
-            Vector2 rightP = new Vector2(position.X + 75,position.Y + 50);
-            var leftLaser = new EnemyLaser(leftP);
-            var rightLaser = new EnemyLaser(rightP);
-            leftLaser.velocity = 10f;
-            leftLaser.sizeMult = 1.5f;
-            rightLaser.velocity = 10f;
-            rightLaser.sizeMult = 1.5f;
-            lasers.Add(leftLaser);
-            lasers.Add(rightLaser);
+            var lasers = new List<EnemyLaser>();
 
+            // t goes 0 -> 1 across the whole sweep
+            float t = sprayShotsFired / (float)(SPRAY_SHOTS - 1);
+            if (!sweepLeftToRight) t = 1f - t;
+            float max = MathHelper.ToRadians(SPRAY_MAX_ANGLE);
+            float angle = MathHelper.Lerp(-max, max, t);      // -60 deg (left) ... +60 deg (right)
+
+            foreach (float offset in new[] { -75f, 75f })
+            {
+                var laser = new EnemyLaser(new Vector2(position.X + offset, position.Y + 50));
+                laser.direction = (float)Math.Sin(angle) * SPRAY_SPEED;   // sideways
+                laser.velocity  = (float)Math.Cos(angle) * SPRAY_SPEED;   // downward
+                laser.sizeMult  = 1.5f;
+                lasers.Add(laser);
+            }
             return lasers;
         }
 
@@ -154,6 +165,7 @@ namespace SpacerGamer
             switch (attackNum)
             {
                 case 1:
+                        doubleShooting = true;
                         if(doubleShotTime > 0)
                         {
                             doubleShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
@@ -169,29 +181,33 @@ namespace SpacerGamer
                                 shotCount = 30;
                                 movingBackHome = true;
                                 Attacking = false;
-                                shoot = false;    
+                                shoot = false;   
+                                doubleShooting = false;
+                                attackNum = 0; 
                             }
                         }
                         break;
                 case 2:
-                        if(doubleShotTime > 0)
-                        {
-                            doubleShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
-                            
-                        }
+                        spraying = true;
+    if (sprayShotTime > 0)
+                        sprayShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
                         else
                         {
-                            lasers = doubleShootAndMove();
-                            shotCount--;
-                            doubleShotTime = DOUBLE_TIMER;
-                            if (shotCount == 0)
+                            lasers = spray();
+                            sprayShotsFired++;
+                            sprayShotTime = SPRAY_TIMER;
+                            if (sprayShotsFired >= SPRAY_SHOTS)
                             {
-                                shotCount = 30;
+                                sprayShotsFired = 0;
+                                sweepLeftToRight = !sweepLeftToRight;
                                 movingBackHome = true;
                                 Attacking = false;
-                                shoot = false;    
+                                shoot = false;
+                                spraying = false;
+                                attackNum = 0;
                             }
                         }
+
                         break;
                 default:
                         break;

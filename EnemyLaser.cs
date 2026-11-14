@@ -72,7 +72,8 @@ namespace SpacerGamer{
             if (used) return;
             var source = new Rectangle(16, 0, SrcWidth, SrcHeight);
             Vector2 origin = new Vector2(SrcWidth / 2f, SrcHeight / 2f);
-            spriteBatch.Draw(texture, position, source, color, 0, origin, DrawScale * sizeMult, SpriteEffects.None, 0);
+            float rotation = (float)Math.Atan2(-direction, velocity);   // 0 when straight down
+            spriteBatch.Draw(texture, position, source, color, rotation, origin, DrawScale * sizeMult, SpriteEffects.None, 0);
         }
     }
 }
