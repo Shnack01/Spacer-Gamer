@@ -9,6 +9,7 @@ namespace SpacerGamer
 {
     public class MegaZornMothership : EnemyBase
     {
+        public bool spraying = false;
         private int attackNum = 0;
         public bool movingBackHome = false;
         public bool Attacking = false;
@@ -16,7 +17,7 @@ namespace SpacerGamer
         private const float ANIMATION_SPEED = 0.1f;
         private double animationTimer;
         private int animationFrame;
-        public override int Health { get; set; } = 5;
+        public override int Health { get; set; } = 10;
         private float moveTimer = 0.33f;
         private const float SHOOT_TIMER = 2f;
         private const float DOUBLE_TIMER = .1f;
@@ -32,6 +33,7 @@ namespace SpacerGamer
         private int shotCount = 30;
         private float startPositionX;
         private float age = 0f;
+        private float direction = 0f;
         private Vector2 home;
                 
         public MegaZornMothership(float spawnTimer, Vector2 position): base(position, spawnTimer, 24)
@@ -66,6 +68,10 @@ namespace SpacerGamer
             }
             
             if(Attacking) position.X = startPositionX + (float)Math.Sin(age * 6f) * 30f;
+            if(spraying)
+            {
+                direction = startPositionX + (float)Math.Sin(age * 6f) * 30f;
+            }
             if(enemyState == EnemyState.Spawning)
             {
                 if (spawnTimer > 0)

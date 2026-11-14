@@ -20,6 +20,7 @@ namespace SpacerGamer{
         private MouseState mouseState = new MouseState();
 
         public float velocity = 8f;
+        public float direction = 0f;
         private Texture2D texture;
         private Vector2 position;
         public bool used;
@@ -55,7 +56,7 @@ namespace SpacerGamer{
         }
         public void Update(GameTime gameTime)
         {
-            
+            position.X += direction;
             position.Y += velocity;
             UpdateBounds();
         }
