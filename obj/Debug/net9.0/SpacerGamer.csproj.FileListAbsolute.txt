@@ -167,3 +167,5 @@ C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\Autofac.dll
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.dll
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\MonoGame.Extended.Content.Pipeline.dll
 C:\Users\Isaac\repos\Spacer-Gamer\bin\Debug\net9.0\Content\Hammer.xnb
+C:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\Hammer.xnb
+c:\Users\User\source\repos\Spacer-Gamer\bin\Debug\net9.0\Content\Target.xnb

@@ -61,6 +61,7 @@ public class SpaceGame : Game, IParticleEmitter
     private List<Laser> lasers = new List<Laser>();
     public List<Heart> hearts = new List<Heart>();
     private List<EnemyLaser> enemyLasers = new List<EnemyLaser>();
+    public List<Target> targets = new List<Target>();
     private Texture2D buttonTexture;
     private Rectangle playButtonBounds = new Rectangle(300, 250, 200, 75);
     private Rectangle upgradeButtonBounds = new Rectangle(300, 350, 200, 75);
@@ -135,6 +136,7 @@ public class SpaceGame : Game, IParticleEmitter
         enemys = new List<IEnemy>();
         lasers = new List<Laser>();
         hearts = new List<Heart>();
+        targets = new List<Target>();
         WeaponBase weaponBase = ship.weapon;
         ship = new SpaceShipSprite();
         ship.weapon = weaponBase;
@@ -360,6 +362,11 @@ public class SpaceGame : Game, IParticleEmitter
                 heart.Collected = true;
             }
         }
+        foreach(var target in targets)
+        {
+            target.playerPosition = ship.Position;
+            target.Update(gameTime);
+        }
         foreach(IEnemy enemy in enemys)
         {
             if(enemy is Sentry sEnemy)
@@ -529,6 +536,10 @@ public class SpaceGame : Game, IParticleEmitter
             {
                 heart.Draw(gameTime, _spriteBatch);
             }
+            foreach(var target in targets)
+                {
+                    target.Draw(gameTime, _spriteBatch);
+                }
             if(waveCompleted)
             {
                 _spriteBatch.DrawString(_spriteFont, $"Wave {spawn.wave}", new Vector2(325,200), Color.Blue);

@@ -33,10 +33,11 @@ namespace SpacerGamer
         public List<IEnemy> MakeEnemies(List<IEnemy> enemies)
         {
             
-            enemies.Clear();/*
+            enemies.Clear();
             MegaZornMothership m = new MegaZornMothership(0, new Vector2(screenWidth / 2, -50));
-                enemies.Add(m);*/
-            
+                m.game = game;
+                enemies.Add(m);
+            /*
             if(wave < 4 && wave != 5)
             {
                 
@@ -64,6 +65,7 @@ namespace SpacerGamer
             else if (wave == 5)
             {
                 MegaZornMothership m = new MegaZornMothership(0, new Vector2(screenWidth / 2, -50));
+                m.game = game;
                 enemies.Add(m);
             }
             else
@@ -97,7 +99,7 @@ namespace SpacerGamer
                     }
                     
                 }
-            }
+            }*/
             /*
             EnemySprite e = new EnemySprite(0, new Vector2(200, 200));
             enemies.Add(e);

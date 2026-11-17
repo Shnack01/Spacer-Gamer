@@ -5,14 +5,25 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpacerGamer.Collisions;
 
+public enum AttackingState
+{
+    Waiting = 0,
+    DoubleShoot = 1,
+    SprayShoot,
+    SniperShoot,
+    Moving,
+    Attack
+}
+
 namespace SpacerGamer
 {
     public class MegaZornMothership : EnemyBase
     {
-        public bool spraying = false;
+        
+        private Target target;
+        public AttackingState state = AttackingState.Waiting;
+        public Game game;
         private int attackNum = 0;
-        public bool movingBackHome = false;
-        public bool Attacking = false;
         private EnemyState enemyState = EnemyState.Spawning;
         private const float ANIMATION_SPEED = 0.1f;
         private double animationTimer;
@@ -64,21 +75,21 @@ namespace SpacerGamer
             gt = gameTime;
             age += (float)gameTime.ElapsedGameTime.TotalSeconds;
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (movingBackHome)
+            if (state == AttackingState.Moving)
             {
                 position = Vector2.Lerp(position, home, 1f - (float)Math.Exp(-5f * dt));
                 if (Vector2.Distance(position, home) < 0.5f)
                 {
                     position = home;
-                    movingBackHome = false;
+                    state = AttackingState.Waiting;
                 }
                 bounds.Center = position;
                 _hitBox.X = position.X - HIT_WIDTH / 2f;
                 _hitBox.Y = position.Y - HIT_HEIGHT / 2f;
             }
             
-            if(doubleShooting) position.X = startPositionX + (float)Math.Sin(age * 6f) * 30f;
-            if (spraying) direction = (float)Math.Sin(age * 6f) * 10f; 
+            if(state == AttackingState.DoubleShoot) position.X = startPositionX + (float)Math.Sin(age * 6f) * 30f;
+            if (state == AttackingState.SprayShoot) direction = (float)Math.Sin(age * 6f) * 10f; 
             if(enemyState == EnemyState.Spawning)
             {
                 if (spawnTimer > 0)
@@ -108,7 +119,7 @@ namespace SpacerGamer
             }
             else
             {
-                if (Attacking || movingBackHome) return;  
+                if (state != AttackingState.Waiting) return;
 
                 shootTimer -= dt;
                 if (shootTimer <= 0)
@@ -156,15 +167,43 @@ namespace SpacerGamer
             }
             return lasers;
         }
+        public List<EnemyLaser> snipe()
+        {
+            float speed = 10f;
+            List<EnemyLaser> lasers = new List<EnemyLaser>();
+            Vector2 leftP = new Vector2(position.X - 75,position.Y + 50);
+            Vector2 leftAim = target.position - leftP;
+            leftAim.Normalize();
+            Vector2 rightP = new Vector2(position.X + 75,position.Y + 50);
+            Vector2 rightAim = target.position - rightP;
+            var leftLaser = new EnemyLaser(leftP);
+            var rightLaser = new EnemyLaser(rightP);
+            rightAim.Normalize();
+            leftLaser.direction = leftAim.X * speed;
+            leftLaser.velocity = leftAim.Y * speed;
+
+            leftLaser.sizeMult = 2f;
+
+            rightLaser.direction = rightAim.X * speed;
+            rightLaser.velocity = rightAim.Y * speed;
+
+            rightLaser.sizeMult = 2f;
+            lasers.Add(leftLaser);
+            lasers.Add(rightLaser);
+            return lasers;
+        }
 
 
         public List<EnemyLaser> Attack()
         {
             List<EnemyLaser> lasers = new List<EnemyLaser>();
-            if(attackNum == 0) attackNum = Random.Shared.Next(1, 3);
-            switch (attackNum)
+            if(attackNum == 0) {
+                attackNum = Random.Shared.Next(3,4);
+                state = (AttackingState)attackNum;
+            }
+            switch (state)
             {
-                case 1:
+                case AttackingState.DoubleShoot:
                         doubleShooting = true;
                         if(doubleShotTime > 0)
                         {
@@ -176,20 +215,19 @@ namespace SpacerGamer
                             lasers = doubleShootAndMove();
                             shotCount--;
                             doubleShotTime = DOUBLE_TIMER;
-                            if (shotCount == 0)
+                            
                             {
                                 shotCount = 30;
-                                movingBackHome = true;
-                                Attacking = false;
                                 shoot = false;   
-                                doubleShooting = false;
+                                state = AttackingState.Moving;
                                 attackNum = 0; 
                             }
                         }
                         break;
-                case 2:
-                        spraying = true;
-    if (sprayShotTime > 0)
+
+                case AttackingState.SprayShoot:
+                        
+                        if (sprayShotTime > 0)
                         sprayShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
                         else
                         {
@@ -200,12 +238,31 @@ namespace SpacerGamer
                             {
                                 sprayShotsFired = 0;
                                 sweepLeftToRight = !sweepLeftToRight;
-                                movingBackHome = true;
-                                Attacking = false;
+                                state = AttackingState.Moving;
                                 shoot = false;
-                                spraying = false;
                                 attackNum = 0;
                             }
+                        }
+
+                        break;
+
+                case AttackingState.SniperShoot: 
+                        if(target == null)
+                        {
+                            target = new Target(0f, new Vector2(200, 400), game);
+                            target.LoadContent(game.Content);
+                            if (game is SpaceGame spaceGame)
+                            {
+                                spaceGame.targets.Add(target);
+                            }
+                        }
+                        if(target.readyToFire)
+                        {
+                            lasers = snipe();
+                            target = null;
+                            shoot = false;
+                            state = AttackingState.Moving;
+                            attackNum = 0;
                         }
 
                         break;
@@ -219,7 +276,7 @@ namespace SpacerGamer
         public void Shoot()
         {
             shoot = true;
-            Attacking = true;
+            state = AttackingState.Attack;
             age = 0f;
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
