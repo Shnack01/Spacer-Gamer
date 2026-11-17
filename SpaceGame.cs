@@ -422,6 +422,7 @@ public class SpaceGame : Game, IParticleEmitter
         lasers.RemoveAll(laser => laser.used);
         enemyLasers.RemoveAll(enemyLasers => enemyLasers.used);
         hearts.RemoveAll(hearts => hearts.Collected);
+        targets.RemoveAll(target => target.used);
         base.Update(gameTime);
         
     }
@@ -536,10 +537,7 @@ public class SpaceGame : Game, IParticleEmitter
             {
                 heart.Draw(gameTime, _spriteBatch);
             }
-            foreach(var target in targets)
-                {
-                    target.Draw(gameTime, _spriteBatch);
-                }
+            
             if(waveCompleted)
             {
                 _spriteBatch.DrawString(_spriteFont, $"Wave {spawn.wave}", new Vector2(325,200), Color.Blue);
@@ -553,6 +551,10 @@ public class SpaceGame : Game, IParticleEmitter
             }
             bool visible = blinkTimer <= 0 || (int)(blinkTimer / BlinkInterval) % 2 == 0;
             if (visible) ship.Draw(gameTime, _spriteBatch);
+            foreach(var target in targets)
+            {
+                target.Draw(gameTime, _spriteBatch);
+            }
             /*
             _spriteBatch.Draw(buttonTexture,
             new Rectangle((int)ship.Bounds.X, (int)ship.Bounds.Y, (int)ship.Bounds.Width, (int)ship.Bounds.Height),

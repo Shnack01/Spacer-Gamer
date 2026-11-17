@@ -167,9 +167,9 @@ namespace SpacerGamer
             }
             return lasers;
         }
-        public List<EnemyLaser> snipe()
+        public List<EnemyLaser> Snipe()
         {
-            float speed = 10f;
+            float speed = 15f;
             List<EnemyLaser> lasers = new List<EnemyLaser>();
             Vector2 leftP = new Vector2(position.X - 75,position.Y + 50);
             Vector2 leftAim = target.position - leftP;
@@ -182,12 +182,12 @@ namespace SpacerGamer
             leftLaser.direction = leftAim.X * speed;
             leftLaser.velocity = leftAim.Y * speed;
 
-            leftLaser.sizeMult = 2f;
+            leftLaser.sizeMult = 2.5f;
 
             rightLaser.direction = rightAim.X * speed;
             rightLaser.velocity = rightAim.Y * speed;
 
-            rightLaser.sizeMult = 2f;
+            rightLaser.sizeMult = 2.5f;
             lasers.Add(leftLaser);
             lasers.Add(rightLaser);
             return lasers;
@@ -198,13 +198,13 @@ namespace SpacerGamer
         {
             List<EnemyLaser> lasers = new List<EnemyLaser>();
             if(attackNum == 0) {
-                attackNum = Random.Shared.Next(3,4);
+                attackNum = Random.Shared.Next(1,4);
                 state = (AttackingState)attackNum;
             }
             switch (state)
             {
                 case AttackingState.DoubleShoot:
-                        doubleShooting = true;
+                        
                         if(doubleShotTime > 0)
                         {
                             doubleShotTime -= (float)gt.ElapsedGameTime.TotalSeconds;
@@ -215,7 +215,7 @@ namespace SpacerGamer
                             lasers = doubleShootAndMove();
                             shotCount--;
                             doubleShotTime = DOUBLE_TIMER;
-                            
+                            if(shotCount == 0)
                             {
                                 shotCount = 30;
                                 shoot = false;   
@@ -258,7 +258,7 @@ namespace SpacerGamer
                         }
                         if(target.readyToFire)
                         {
-                            lasers = snipe();
+                            lasers = Snipe();
                             target = null;
                             shoot = false;
                             state = AttackingState.Moving;
