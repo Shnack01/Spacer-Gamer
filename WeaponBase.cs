@@ -34,8 +34,15 @@ namespace SpacerGamer
         Fire(location, projectiles);
         return true;
     }
+    public bool TryFire(Vector2 location, List<Missile> projectiles)
+    {
+        if (timer > 0) return false;
+        timer = cooldown;
+        Fire(location, projectiles);
+        return true;
+    }
 
-    protected abstract void Fire(Vector2 location, List<Laser> projectiles);
-
+    protected virtual void Fire(Vector2 location, List<Laser> projectiles) {}
+    protected virtual void Fire(Vector2 location, List<Missile> projectiles) { }
     }
 }
