@@ -20,12 +20,25 @@ namespace SpacerGamer{
 
         private BoundingRectangle bounds;
         public BoundingRectangle Bounds => bounds;
+
+
+        // Toggle this off when you're done tuning the bounds
+        public static bool DebugDrawBounds = true;
+        private static Texture2D pixel;
         
+        private Vector2 boundsOffset = new Vector2(-4f, -4f);
+
         public Missile(Vector2 shipLocation)
         {
             this.position = shipLocation;
-            this.bounds = new BoundingRectangle(position, 2, 16);
-            
+            this.bounds = new BoundingRectangle(position + boundsOffset, 7, 10);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            this.position -= direction;
+            this.bounds.X = position.X + boundsOffset.X;
+            this.bounds.Y = position.Y + boundsOffset.Y;
         }
 
         /// <summary>
@@ -36,13 +49,7 @@ namespace SpacerGamer{
         {
             texture = content.Load<Texture2D>("Missile");
         }
-        public void Update(GameTime gameTime)
-        {
-            
-            this.position -= direction;
-            this.bounds.X = position.X;
-            this.bounds.Y = position.Y;
-        }
+        
 
 
         /// <summary>
@@ -55,6 +62,28 @@ namespace SpacerGamer{
             if (used) return;
             Vector2 origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
             spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 0.75f, SpriteEffects.None, 0f);
+
+             if (DebugDrawBounds) DrawBounds(spriteBatch);
+        }
+
+        private void DrawBounds(SpriteBatch spriteBatch)
+        {
+            if (pixel == null)
+            {
+                pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                pixel.SetData(new[] { Color.White });
+            }
+
+            int x = (int)bounds.X;
+            int y = (int)bounds.Y;
+            int w = (int)bounds.Width;
+            int h = (int)bounds.Height;
+            const int t = 1; // line thickness
+
+            spriteBatch.Draw(pixel, new Rectangle(x, y, w, t), Color.Red);         // top
+            spriteBatch.Draw(pixel, new Rectangle(x, y + h - t, w, t), Color.Red); // bottom
+            spriteBatch.Draw(pixel, new Rectangle(x, y, t, h), Color.Red);         // left
+            spriteBatch.Draw(pixel, new Rectangle(x + w - t, y, t, h), Color.Red); // right
         }
     }
 }

@@ -373,9 +373,8 @@ public class SpaceGame : Game, IParticleEmitter
 
                 foreach(IEnemy enemy in enemys)
                 {
-                    if (enemy.Health == 0 || enemy.spawnTimer > 0) continue;
                     bool laserHit = enemy is MegaZornMothership mzTarget
-                        ? missile.Bounds.CollidesWith(mzTarget.HitBox)
+                        ? mzTarget.CollidesWith(missile.Bounds)
                         : missile.Bounds.CollidesWith(enemy.Bounds);
                     if (laserHit)
                     {

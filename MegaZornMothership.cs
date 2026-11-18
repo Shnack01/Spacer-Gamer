@@ -40,6 +40,13 @@ namespace SpacerGamer
         private const float HIT_HEIGHT = 80f; 
         private BoundingRectangle _hitBox;
         public BoundingRectangle HitBox => _hitBox;
+        public bool rightHit = false;
+        public bool centerHit = false;
+        public bool leftHit = false;
+        private static Texture2D pixel;
+        public BoundingCircle centerScreen;
+        public BoundingCircle rightScreen;
+        public BoundingCircle leftScreen;
         private GameTime gt;
         public float doubleShotTime = DOUBLE_TIMER;
         public float sprayShotTime = SPRAY_TIMER;
@@ -56,20 +63,36 @@ namespace SpacerGamer
 
         private int  sprayShotsFired = 0;
         private bool sweepLeftToRight = true;
+        private Vector2 circleOffset = new Vector2(0f, 60f);
+        private Vector2 rightCircleOffset = new Vector2(140f, 26f);
+        private Vector2 leftCircleOffset = new Vector2(-140f, 26f);
                 
         public MegaZornMothership(float spawnTimer, Vector2 position): base(position, spawnTimer, 24)
         {
            _hitBox = new BoundingRectangle(position, HIT_WIDTH, HIT_HEIGHT);
            _hitBox.X = position.X - HIT_WIDTH / 2f;
             _hitBox.Y = position.Y - HIT_HEIGHT / 2f;
+            centerScreen = new BoundingCircle(position + circleOffset, 45f);
+            leftScreen = new BoundingCircle(position + leftCircleOffset, 38f);
+            rightScreen = new BoundingCircle(position + rightCircleOffset, 38f);
             startPositionX = position.X;
         }
-
         public override void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("MothershipSprite");
         }
-
+        public void Hit()
+        {
+            
+        }
+        public bool CollidesWith(BoundingRectangle other)
+        {
+            centerHit = other.CollidesWith(centerScreen);
+            if(centerHit) Hit();
+            leftHit   = other.CollidesWith(leftScreen);
+            rightHit  = other.CollidesWith(rightScreen);
+            return centerHit || leftHit || rightHit;
+        }
         public override void Update(GameTime gameTime, int wave)
         {
             gt = gameTime;
@@ -128,7 +151,9 @@ namespace SpacerGamer
                     shootTimer = SHOOT_TIMER;
                 }
             }
-
+            centerScreen.Center = position + circleOffset;
+            leftScreen.Center = position + leftCircleOffset;
+            rightScreen.Center = position + rightCircleOffset;
             
         }
         public List<EnemyLaser> doubleShootAndMove()
@@ -294,6 +319,37 @@ namespace SpacerGamer
             var source = new Rectangle(animationFrame * 32, 0, 32, 32);
             Vector2 origin = new Vector2(source.Width / 2f, source.Height / 2f);
             spriteBatch.Draw(texture, position, null, color, 0, texture.Bounds.Center.ToVector2(), 5f, SpriteEffects.None, 0);
+
+            if (true)
+            DrawCircle(spriteBatch, centerScreen.Center, centerScreen.Radius, Color.Red);
+            if (true)
+            DrawCircle(spriteBatch, rightScreen.Center, rightScreen.Radius, Color.Red);
+            if (true)
+            DrawCircle(spriteBatch, leftScreen.Center, leftScreen.Radius, Color.Red);
+        }
+        private void DrawCircle(SpriteBatch spriteBatch, Vector2 center, float radius, Color color, int segments = 48)
+        {
+            if (pixel == null)
+            {
+                pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                pixel.SetData(new[] { Color.White });
+            }
+
+            float step = MathHelper.TwoPi / segments;
+            Vector2 prev = center + new Vector2(radius, 0f);
+
+            for (int i = 1; i <= segments; i++)
+            {
+                float a = i * step;
+                Vector2 next = center + new Vector2((float)Math.Cos(a), (float)Math.Sin(a)) * radius;
+
+                Vector2 edge = next - prev;
+                float angle = (float)Math.Atan2(edge.Y, edge.X);
+                spriteBatch.Draw(pixel, prev, null, color, angle, Vector2.Zero,
+                    new Vector2(edge.Length(), 1f), SpriteEffects.None, 0f);
+
+                prev = next;
+            }
         }
     }
 }
