@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/Isaac/repos/Spacer-Gamer/Content/Boom7.wav</SourceFile>
   <SourceTime>2026-11-01T23:01:29.5494124-06:00</SourceTime>
   <DestFile>C:/Users/Isaac/repos/Spacer-Gamer/Content/bin/DesktopGL/Content/Boom7.xnb</DestFile>
-  <DestTime>2026-11-17T12:44:21.0573842-06:00</DestTime>
+  <DestTime>2026-11-17T19:13:35.7949531-06:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2026-08-14T16:50:10-05:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

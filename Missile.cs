@@ -52,10 +52,9 @@ namespace SpacerGamer{
         /// <param name="spriteBatch">The spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if(used) return;
-            var source = new Rectangle(16, 0, 2, 16);
-            Vector2 origin = new Vector2(1f, 8f);
-            spriteBatch.Draw(texture, position, source, Color.White, 0, origin, 3f, SpriteEffects.None, 0);
+            if (used) return;
+            Vector2 origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
+            spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 0.75f, SpriteEffects.None, 0f);
         }
     }
 }

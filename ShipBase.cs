@@ -24,7 +24,7 @@ namespace SpacerGamer
             position.Y + (opaqueRect.Bottom - texture.Height / 2f) * scale);
 
         public event Action<Vector2> LaserFired;
-
+        public event Action<Vector2> MissileFired;
         public int MaxHealth { get; }
         public int Health { get; set; }
         public bool Destroyed { get; protected set; }
@@ -94,13 +94,21 @@ namespace SpacerGamer
             Destroyed = true;
         }
 
-        protected void Fire()
+        protected void FireLaser()
         {
             LaserFired?.Invoke(position + muzzleOffset);
+        }
+        protected void FireMissile()
+        {
+            MissileFired?.Invoke(position + muzzleOffset);
         }
         public bool TryFireWeapon(Vector2 location, List<Laser> list)
         {
             return weapon != null && weapon.TryFire(position + muzzleOffset, list);
+        }
+        public bool TryFireWeapon(Vector2 location, List<Missile> list)
+        {
+            return weapon != null && weapon.TryFireMissile(position + muzzleOffset, list);
         }
 
         protected virtual void UpdateBounds()

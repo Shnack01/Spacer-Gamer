@@ -30,7 +30,7 @@ public class PlayerData
 }
 public class SpaceGame : Game, IParticleEmitter
 {
-    
+    private MissileLauncher missileLauncher = new MissileLauncher { unlocked = true };
     private bool bossMusicPlaying = false;
     private Rectangle backgroundBounds = new Rectangle(180, 3, 460, 165);
     private PlayerData playerData = new PlayerData();
@@ -75,6 +75,7 @@ public class SpaceGame : Game, IParticleEmitter
     private Song backGroundMisic;
     private Song bossMusic;
     private ScreenManager screenManager;
+    private List<Missile> missiles = new List<Missile>();
     private HashSet<WeaponBase> weapons = new HashSet<WeaponBase>
     {
         new SplitShot(),
@@ -104,6 +105,7 @@ public class SpaceGame : Game, IParticleEmitter
         ship = new SpaceShipSprite();
         spawn = new Spawning(screenWidth, this);
         ship.LaserFired += LaserFired;
+        ship.MissileFired+= MissileFired;
         _engineParticle = new EngineParticle(this, this);
         Components.Add(_engineParticle);
         foreach (var w in weapons)
@@ -121,6 +123,17 @@ public class SpaceGame : Game, IParticleEmitter
             }
         
         laserFired.Play();
+    }
+    private void MissileFired(Vector2 shipPosition)
+    {
+        int count = missiles.Count;
+        if (!missileLauncher.TryFireMissile(ship.Position, missiles)) return;
+            if (missiles.Count == count) return;        
+
+            for (int i = count; i < missiles.Count; i++)
+                missiles[i].LoadContent(Content);
+
+            laserFired.Play();
     }
     private void EnemyLaserFired(Vector2 enemyPosition)
     {
@@ -142,6 +155,8 @@ public class SpaceGame : Game, IParticleEmitter
         ship.weapon = weaponBase;
         ship.LoadContent(Content);
         ship.LaserFired += LaserFired;
+        ship.MissileFired += MissileFired;
+        missiles = new List<Missile>();
         spawn = new Spawning(screenWidth, this);
         waveCompleted = true;
         waveTransitionTimer = 2f;
@@ -296,6 +311,7 @@ public class SpaceGame : Game, IParticleEmitter
         }
         
         ship.Update(gameTime);
+        missileLauncher.Update(gameTime);
         
         Velocity = new Vector2(0, 1); 
         Position = ship.TailPosition + new Vector2(0, -4);
@@ -349,9 +365,41 @@ public class SpaceGame : Game, IParticleEmitter
                     break;
                 }
             }
-            
-            
         }
+            foreach (var missile in missiles)
+            {
+                missile.Update(gameTime);
+                if (missile.used) continue;
+
+                foreach(IEnemy enemy in enemys)
+                {
+                    if (enemy.Health == 0 || enemy.spawnTimer > 0) continue;
+                    bool laserHit = enemy is MegaZornMothership mzTarget
+                        ? missile.Bounds.CollidesWith(mzTarget.HitBox)
+                        : missile.Bounds.CollidesWith(enemy.Bounds);
+                    if (laserHit)
+                    {
+                    
+                        enemy.color = Color.Red;
+                        enemy.Health--;
+                        if(enemy.Health == 0) 
+                        {
+                            enemy.Destroyed = true;
+                            boom.Play();
+                            if (enemy is Asteriod a){
+                                a.DropHealth();
+                            }
+                        }
+
+                        missile.used = true;
+                        
+                        
+                        score += enemy.points;
+                        break;
+                    }
+                }
+            }
+        
         foreach(var heart in hearts)
         {
             if(heart.Bounds.CollidesWith(ship.Bounds))
@@ -532,6 +580,10 @@ public class SpaceGame : Game, IParticleEmitter
             foreach(var laser in enemyLasers)
             {
                 laser.Draw(gameTime, _spriteBatch); 
+            }
+            foreach(var missile in missiles)
+            {
+                missile.Draw(gameTime, _spriteBatch); 
             }
             foreach(var heart in hearts)
             {

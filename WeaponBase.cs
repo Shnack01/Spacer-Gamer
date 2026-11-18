@@ -18,14 +18,24 @@ namespace SpacerGamer
         public int cost;
         protected float cooldown;
         protected float timer;
+        public bool goodToGo = true;
         protected WeaponBase(float cooldown)
         {
             this.cooldown = cooldown;
         }
-        public void Update(GameTime gameTime)
-    {
-        if (timer > 0) timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-    }
+        public virtual void Update(GameTime gameTime)
+        {
+            if (timer > 0) timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        public virtual bool TryFireMissile(Vector2 location, List<Missile> projectiles)
+        {
+            if (timer > 0) return false;
+            timer = cooldown;
+            Fire(location, projectiles);
+            return true;
+        }
+
 
     public bool TryFire(Vector2 location, List<Laser> projectiles)
     {
@@ -34,15 +44,9 @@ namespace SpacerGamer
         Fire(location, projectiles);
         return true;
     }
-    public bool TryFire(Vector2 location, List<Missile> projectiles)
-    {
-        if (timer > 0) return false;
-        timer = cooldown;
-        Fire(location, projectiles);
-        return true;
-    }
+    
 
     protected virtual void Fire(Vector2 location, List<Laser> projectiles) {}
-    protected virtual void Fire(Vector2 location, List<Missile> projectiles) { }
+    protected virtual void Fire(Vector2 location, List<Missile> projectiles) {}
     }
 }

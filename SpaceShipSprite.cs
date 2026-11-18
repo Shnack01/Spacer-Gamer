@@ -68,11 +68,11 @@ namespace SpacerGamer
             if (((keyboardState.IsKeyDown(Keys.Space) && priorKeyboardState.IsKeyUp(Keys.Space)) ||
                 (gamePadState.IsButtonDown(Buttons.A) && priorGamePadState.IsButtonUp(Buttons.A))) && weapon is not DeathRay)
             {
-                Fire();
+                FireLaser();
             }
             if ((keyboardState.IsKeyDown(Keys.Space) || gamePadState.IsButtonDown(Buttons.A)) && (weapon is DeathRay) && (heatLevel < 100) && (!overheated))
             {
-                Fire();
+                FireLaser();
                 heatLevel += 3;
                 if (heatLevel >= MAX_HEAT)
                 {
@@ -92,6 +92,11 @@ namespace SpacerGamer
             {
                 lastDirectionLeft = true;
                 Dash();
+            }
+            if ((keyboardState.IsKeyDown(Keys.F) && priorKeyboardState.IsKeyUp(Keys.F)) ||
+                (gamePadState.IsButtonDown(Buttons.X) && priorGamePadState.IsButtonUp(Buttons.X)))
+            {
+                FireMissile();
             }
 
             
